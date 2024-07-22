@@ -345,93 +345,81 @@ if (isset($_POST['submitAdd'])) {
                                                 <!-- adv search modal -->
                                                 <div class="modal-body">
                                                     <form method="POST">
-                                                        <div class="container">
-                                                            <div class="content">
-                                                                <div class="form-row">
-                                                                    <div class="form-group col-md-6">
-                                                                        <label for="age_min">Minimum Age</label>
-                                                                        <input type="number" class="form-control" id="age_min" name="age_min" min="15"
-                                                                            max="30" value="<?php echo htmlspecialchars($age_min); ?>">
-                                                                    </div>
-                                                                    <div class="form-group col-md-6">
-                                                                        <label for="age_max">Maximum Age</label>
-                                                                        <input type="number" class="form-control" id="age_max" name="age_max" min="15"
-                                                                            max="30" value="<?php echo htmlspecialchars($age_max); ?>">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="civil_status">Civil Status</label>
-                                                                    <select class="form-control" id="civil_status" name="civil_status">
-                                                                        <option value="" <?php echo $civil_status == '' ? 'selected' : ''; ?>>Any </option>
-                                                                        <option value="Single" <?php echo $civil_status == 'Single' ? 'selected' : ''; ?>>Single </option>
-                                                                        <option value="Married" <?php echo $civil_status == 'Married' ? 'selected' : ''; ?>>Married </option>
-                                                                        <option value="Divorced" <?php echo $civil_status == 'Divorced' ? 'selected' : ''; ?>>Divorced </option>
-                                                                        <option value="Widowed" <?php echo $civil_status == 'Widowed' ? 'selected' : ''; ?>>Widowed </option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="sex">Sex</label>
-                                                                    <select class="form-control" id="sex" name="sex">
-                                                                        <option value="" <?php echo $sex == '' ? 'selected' : ''; ?>>Any </option>
-                                                                        <option value="Male" <?php echo $sex == 'Male' ? 'selected' : ''; ?>>Male </option>
-                                                                        <option value="Female" <?php echo $sex == 'Female' ? 'selected' : ''; ?>>Female
-                                                                        </option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="work_status">Work Status</label>
-                                                                    <select class="form-control" id="work_status" name="work_status">
-                                                                        <option value="" <?php echo $work_status == '' ? 'selected' : ''; ?>>Any </option>
-                                                                        <option value="Student" <?php echo $work_status == 'Student' ? 'selected' : ''; ?>>
-                                                                            Student </option>
-                                                                        <option value="Employed" <?php echo $work_status == 'Employed' ? 'selected' : ''; ?>>Employed </option>
-                                                                        <option value="Unemployed" <?php echo $work_status == 'Unemployed' ? 'selected' : ''; ?>>Unemployed </option>
-                                                                        <option value="Self-Employed" <?php echo $work_status == 'Self-Employed' ? 'selected' : ''; ?>>Self-Employed </option>
-                                                                        <option value="Currently Looking For Job" <?php echo $work_status == 'Currently Looking For Job' ? 'selected' : ''; ?>>Currently Looking For Job </option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="educational_background">Educational Background</label>
-                                                                    <select class="form-control" id="educational_background"
-                                                                        name="educational_background">
-                                                                        <option value="" <?php echo $educational_background == '' ? 'selected' : ''; ?>>Any
-                                                                        </option>
-                                                                        <option value="Elementary Level" <?php echo $educational_background == 'Elementary Level' ? 'selected' : ''; ?>>Elementary Level </option>
-                                                                        <option value="Elementary Graduate" <?php echo $educational_background == 'Elementary Graduate' ? 'selected' : ''; ?>>Elementary
-                                                                            Graduate </option>
-                                                                        <option value="High School Level" <?php echo $educational_background == 'High School Level' ? 'selected' : ''; ?>>High School Level </option>
-                                                                        <option value="High School Graduate" <?php echo $educational_background == 'High School Graduate' ? 'selected' : ''; ?>>High School Graduate </option>
-                                                                        <option value="Vocational Graduate" <?php echo $educational_background == 'Vocational Graduate' ? 'selected' : ''; ?>>Vocational
-                                                                            Graduate </option>
-                                                                        <option value="College Level" <?php echo $educational_background == 'College Level' ? 'selected' : ''; ?>>College Level </option>
-                                                                        <option value="College Graduate" <?php echo $educational_background == 'College Graduate' ? 'selected' : ''; ?>>College Graduate </option>
-                                                                        <option value="Master Level" <?php echo $educational_background == "Master Level" ? 'selected' : ''; ?>>Master's Level </option>
-                                                                        <option value="Master Graduate" <?php echo $educational_background == "Master Graduate" ? 'selected' : ''; ?>>Master's Graduate </option>
-                                                                        <option value="Doctorate Level" <?php echo $educational_background == 'Doctorate Level' ? 'selected' : ''; ?>>Doctorate Level </option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="youth_classification">Youth Classification</label>
-                                                                    <select class="form-control" id="youth_classification" name="youth_classification">
-                                                                        <option value="" <?php echo $youth_classification == '' ? 'selected' : ''; ?>>Any
-                                                                        </option>
-                                                                        <option value="In School Youth" <?php echo $youth_classification == 'In School Youth' ? 'selected' : ''; ?>>In School Youth </option>
-                                                                        <option value="Out Of School Youth" <?php echo $youth_classification == 'Out Of School Youth' ? 'selected' : ''; ?>>Out Of School Youth </option>
-                                                                        <option value="Working Youth" <?php echo $youth_classification == 'Working Youth' ? 'selected' : ''; ?>>Working Youth </option>
-                                                                        <option value="Person With Disability (PWD)" <?php echo $youth_classification == 'Person With Disability (PWD)' ? 'selected' : ''; ?>>Person With Disability (PWD) </option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="register_sk_voter" class="form-label">Register SK Voter</label>
-                                                                    <select class="form-control" id="register_sk_voter" name="register_sk_voter">
-                                                                        <option value="" <?php echo $register_sk_voter == '' ? 'selected' : ''; ?>>Any
-                                                                        </option>
-                                                                        <option value="Registered" <?php echo $register_sk_voter == 'Registered' ? 'selected' : ''; ?>>Yes </option>
-                                                                        <option value="Not Registered" <?php echo $register_sk_voter == 'Not Registered' ? 'selected' : ''; ?>>No </option>
-                                                                    </select>
-                                                                </div>
+                                                    <div class="container">
+                                                    <div class="content">
+                                                    <div class="form-row align-items-center">
+                                                        <div class="col-auto">
+                                                            <div class="form-group">
+                                                                <label for="age_min" class="sr-only">Minimum Age</label>
+                                                                <input type="number" class="form-control" id="age_min" name="age_min" min="15" max="30" value="<?php echo htmlspecialchars($age_min); ?>" placeholder="Min Age">
                                                             </div>
                                                         </div>
+                                                        <div class="col-auto">
+                                                            <div class="form-group">
+                                                                <label for="age_max" class="sr-only">Maximum Age</label>
+                                                                <input type="number" class="form-control" id="age_max" name="age_max" min="15" max="30" value="<?php echo htmlspecialchars($age_max); ?>" placeholder="Max Age">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                    <select class="form-control" id="civil_status" name="civil_status">
+                                                        <option value="" <?php echo $civil_status == '' ? 'selected' : ''; ?>>Civil Status </option>
+                                                        <option value="Single" <?php echo $civil_status == 'Single' ? 'selected' : ''; ?>>Single </option>
+                                                        <option value="Married" <?php echo $civil_status == 'Married' ? 'selected' : ''; ?>>Married </option>
+                                                        <option value="Divorced" <?php echo $civil_status == 'Divorced' ? 'selected' : ''; ?>>Divorced </option>
+                                                        <option value="Widowed" <?php echo $civil_status == 'Widowed' ? 'selected' : ''; ?>>Widowed </option>
+                                                    </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                    <select class="form-control" id="sex" name="sex">
+                                                        <option value="" <?php echo $sex == '' ? 'selected' : ''; ?>>Sex </option>
+                                                        <option value="Male" <?php echo $sex == 'Male' ? 'selected' : ''; ?>>Male </option>
+                                                        <option value="Female" <?php echo $sex == 'Female' ? 'selected' : ''; ?>>Female </option>
+                                                    </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                    <select class="form-control" id="work_status" name="work_status">
+                                                        <option value="" <?php echo $work_status == '' ? 'selected' : ''; ?>>Work Status </option>
+                                                        <option value="Student" <?php echo $work_status == 'Student' ? 'selected' : ''; ?>>Student </option>
+                                                        <option value="Employed" <?php echo $work_status == 'Employed' ? 'selected' : ''; ?>>Employed </option>
+                                                        <option value="Unemployed" <?php echo $work_status == 'Unemployed' ? 'selected' : ''; ?>>Unemployed </option>
+                                                        <option value="Self-Employed" <?php echo $work_status == 'Self-Employed' ? 'selected' : ''; ?>>Self-Employed </option>
+                                                        <option value="Currently Looking For Job" <?php echo $work_status == 'Currently Looking For Job' ? 'selected' : ''; ?>>Currently Looking For Job </option>
+                                                    </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                    <select class="form-control" id="educational_background" name="educational_background">
+                                                        <option value="" <?php echo $educational_background == '' ? 'selected' : ''; ?>>Educational Background </option>
+                                                        <option value="Elementary Level" <?php echo $educational_background == 'Elementary Level' ? 'selected' : ''; ?>>Elementary Level </option>
+                                                        <option value="Elementary Graduate" <?php echo $educational_background == 'Elementary Graduate' ? 'selected' : ''; ?>>Elementary Graduate </option>
+                                                        <option value="High School Level" <?php echo $educational_background == 'High School Level' ? 'selected' : ''; ?>>High School Level </option>
+                                                        <option value="High School Graduate" <?php echo $educational_background == 'High School Graduate' ? 'selected' : ''; ?>>High School Graduate </option>
+                                                        <option value="Vocational Graduate" <?php echo $educational_background == 'Vocational Graduate' ? 'selected' : ''; ?>>Vocational Graduate </option>
+                                                        <option value="College Level" <?php echo $educational_background == 'College Level' ? 'selected' : ''; ?>>College Level </option>
+                                                        <option value="College Graduate" <?php echo $educational_background == 'College Graduate' ? 'selected' : ''; ?>>College Graduate </option>
+                                                        <option value="Master Level" <?php echo $educational_background == "Master Level" ? 'selected' : ''; ?>>Master's Level </option>
+                                                        <option value="Master Graduate" <?php echo $educational_background == "Master Graduate" ? 'selected' : ''; ?>>Master's Graduate </option>
+                                                        <option value="Doctorate Level" <?php echo $educational_background == 'Doctorate Level' ? 'selected' : ''; ?>>Doctorate Level </option>
+                                                    </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                    <select class="form-control" id="youth_classification" name="youth_classification">
+                                                        <option value="" <?php echo $youth_classification == '' ? 'selected' : ''; ?>>Youth Classification </option>
+                                                        <option value="In School Youth" <?php echo $youth_classification == 'In School Youth' ? 'selected' : ''; ?>>In School Youth </option>
+                                                        <option value="Out Of School Youth" <?php echo $youth_classification == 'Out Of School Youth' ? 'selected' : ''; ?>>Out Of School Youth </option>
+                                                        <option value="Working Youth" <?php echo $youth_classification == 'Working Youth' ? 'selected' : ''; ?>>Working Youth </option>
+                                                        <option value="Person With Disability" <?php echo $youth_classification == 'Person With Disability' ? 'selected' : ''; ?>>Person With Disability </option>
+                                                    </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                    <select class="form-control" id="register_sk_voter" name="register_sk_voter">
+                                                        <option value="" <?php echo $register_sk_voter == '' ? 'selected' : ''; ?>>Registered SK Voter </option>
+                                                        <option value="Registered" <?php echo $register_sk_voter == 'Registered' ? 'selected' : ''; ?>>Yes </option>
+                                                        <option value="Not Registered" <?php echo $register_sk_voter == 'Not Registered' ? 'selected' : ''; ?>>No </option>
+                                                    </select>
+                                                    </div>
+                                                    </div>
+                                                    </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="submit" class="btn btn-primary" name="advancesearch">Search</button>
@@ -528,31 +516,6 @@ if (isset($_POST['submitAdd'])) {
                                                 </tbody>
                                             </table>
                                         </form>
-                                        <!-- Pagination Controls -->
-                                        <nav aria-label="Page navigation">
-                                            <ul class="pagination justify-content-center">
-                                                <?php if ($currentPage > 1) { ?>
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="?page=<?php echo $currentPage - 1; ?>" aria-label="Previous">
-                                                            <span aria-hidden="true">&laquo;</span>
-                                                        </a>
-                                                    </li>
-                                                <?php } ?>
-                                                <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
-                                                    <li class="page-item <?php if ($i == $currentPage) echo 'active'; ?>">
-                                                        <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-                                                    </li>
-                                                <?php } ?>
-                                                <?php if ($currentPage < $totalPages) { ?>
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="?page=<?php echo $currentPage + 1; ?>" aria-label="Next">
-                                                            <span aria-hidden="true">&raquo;</span>
-                                                        </a>
-                                                    </li>
-                                                <?php } ?>
-                                            </ul>
-                                        </nav>
-                                        <!-- End of Pagination Controls -->
                                     </div>
                                     <script>
                                         document.addEventListener('DOMContentLoaded', function () {

@@ -398,11 +398,10 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
                                             </div>
                                         </div>
                                     </li>
-                                          <li>
-                        <div class="dropdown-divider"></div>
-                       
-                        <a class="dropdown-item" href="logout.php">Logout</a>
-                      </li>
+                                        <li>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="logout.php">Logout</a>
+                                        </li>
                                 </div>
                             </ul>
                         </li>
@@ -419,7 +418,9 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
         <script src="../bootstrap/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
         <!-- Chart JS -->
         <script src="../bootstrap/assets/js/plugin/chart.js/chart.min.js"></script><div class="content">
-            <br><br><br>
+        <br><br><br>
+        
+        <!-- CONTENT -->
             <div class="container"></div>
             <center><h3>Update Profile</h3></center>
             <form method="POST" action="update_archive.php?id=<?php echo $id; ?>">

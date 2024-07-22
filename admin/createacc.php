@@ -48,10 +48,7 @@ if (isset($_POST['submit'])) {
 
       if ($result_insert) {
           $form_submitted = true;
-          echo "<script>
-                  alert('User Successfully Registered.');
-                  window.location.href = 'createacc.php'; // Redirect to registration form
-                </script>";
+          header("location:createacc.php");
       } else {
           echo "<script>alert('Error registering user.');</script>";
       }
@@ -67,7 +64,6 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
   $barangay_code = $row['Brngy'];
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -153,7 +149,7 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
           <div class="sidebar-content">
             <ul class="nav nav-secondary">
 
- <?php
+        <?php
         // Display links based on user's role
         if ($role == 'admin' || $role == 'user') {
             echo '              
@@ -169,13 +165,13 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
         } 
         ?>
               
-              <li class="nav-section">
-                <span class="sidebar-mini-icon">
-                  <i class="fa fa-ellipsis-h"></i>
-                </span>
-                <h4 class="text-section">Components</h4>
-              </li>
-              <li class="nav-item">
+          <li class="nav-section">
+            <span class="sidebar-mini-icon">
+              <i class="fa fa-ellipsis-h"></i>
+            </span>
+            <h4 class="text-section">Components</h4>
+          </li>
+          <li class="nav-item">
         
            <a data-bs-toggle="collapse" href="#tables">
                 <i class="fas icon-people"></i>
@@ -308,7 +304,7 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
           <!-- End Navbar -->
         </div>
 
-        <div class="container mt-5 d-flex justify-content-center align-items-center full-height">
+        <div class="container mt-1 d-flex justify-content-center align-items-center full-height">
           <div class="card shadow p-4">
             <div class="card-body">
               <h2 class="card-header text-center">Registration</h2>
