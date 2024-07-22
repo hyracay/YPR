@@ -7,27 +7,42 @@ if (!isset($_SESSION['ADMIN'])) {
   header("location: ../index.php");
   exit(); // Ensure that no further code is executed after the redirection
 }
+
 if (isset($_SESSION['role'])) {
   $role = $_SESSION['role'];
 } else {
   // Handle case where role is not set (e.g., redirect or error message)
-  echo "Role information not found. Please contact administrator.";
+  echo "Role information not found. Please contact the administrator.";
   exit();
 }
 
-// for barangay code
-$barangay_code = "";
-$code = isset($_SESSION['code']) ? $_SESSION['code'] : '';
+// Set default barangay code and name
+$barangay_code = "All";
+$barangay_name = "All Barangays";
+if (isset($_SESSION['code'])) {
+  $barangay_code = $_SESSION['code'];
+}
 
 if ($role == 'admin') {
-    if (isset($_POST['barangay_code'])) {
-        $code = $_POST['barangay_code'];
-        $_SESSION['code'] = $code;
-    }
+  if (isset($_POST['barangay_code'])) {
+    $barangay_code = $_POST['barangay_code'];
+    $_SESSION['code'] = $barangay_code;
+  }
+}
+
+// Fetch barangay name based on the code
+if ($barangay_code !== 'All') {
+  $query = "SELECT Brngy FROM barangay WHERE Code = '$barangay_code'";
+  $result = mysqli_query($conn, $query);
+  if ($row = mysqli_fetch_assoc($result)) {
+    $barangay_name = $row['Brngy'];
+  }
+} else {
+  $barangay_name = "";
 }
 
 // Fetch data based on barangay code, if set; otherwise, fetch overall data
-$where_clause = $code !== 'All' ? "WHERE barangay_code = '$code'" : '';
+$where_clause = $barangay_code !== 'All' ? "WHERE barangay_code = '$barangay_code'" : '';
 
 // pie chart for civil status
 $data_civ = "SELECT civil_status, COUNT(*) as count FROM profiles $where_clause GROUP BY civil_status";
@@ -165,7 +180,6 @@ while ($row = mysqli_fetch_assoc($result_sk)) {
               </div>
             </li>
             
-
           <li class="nav-item">
             <a href="calendar.php"><i class="fas icon-calendar"></i><p>Calendar</p></a>
           </li>
@@ -199,7 +213,7 @@ while ($row = mysqli_fetch_assoc($result_sk)) {
       <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
         <div class="container-fluid">
           <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"></nav>
-          <h3><?php echo $barangay_code; ?> La Trinidad Youth Profiling System</h3>
+          <h3><?php echo $barangay_name; ?> La Trinidad Youth Profiling System</h3>
           <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
             <li class="nav-item topbar-user dropdown hidden-caret">
               <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" aria-expanded="false">
@@ -244,19 +258,19 @@ while ($row = mysqli_fetch_assoc($result_sk)) {
         <?php if ($role == 'admin') { ?>
           <hr>
           <form method="POST">
-    Barangay
-    <select name="barangay_code" onchange="this.form.submit()">
-        <option value="All" <?php if($code == 'All') echo 'selected'; ?>>All</option>
-        <?php
-        $fetch = "SELECT * FROM barangay";
-        $result_fetch = mysqli_query($conn, $fetch);
-        while ($row = mysqli_fetch_array($result_fetch)) {
-            $selected = ($row['Code'] == $code) ? 'selected' : '';
-            echo '<option value="' . $row['Code'] . '" ' . $selected . '>' . $row['Brngy'] . '</option>';
-        }
-        ?>
-    </select>
-</form>
+            Barangay
+            <select name="barangay_code" onchange="this.form.submit()">
+                <option value="All" <?php if($barangay_code == 'All') echo 'selected'; ?>>All Barangays</option>
+                <?php
+                $fetch = "SELECT * FROM barangay";
+                $result_fetch = mysqli_query($conn, $fetch);
+                while ($row = mysqli_fetch_array($result_fetch)) {
+                    $selected = ($row['Code'] == $barangay_code) ? 'selected' : '';
+                    echo '<option value="' . $row['Code'] . '" ' . $selected . '>' . $row['Brngy'] . '</option>';
+                }
+                ?>
+            </select>
+          </form>
           
         <?php } ?>
 
@@ -478,11 +492,6 @@ while ($row = mysqli_fetch_assoc($result_sk)) {
 <script src="../bootstrap/assets/js/plugin/datatables/datatables.min.js"></script>
 <!-- Bootstrap Notify -->
 <script src="../bootstrap/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
-<!-- jQuery Vector Maps -->
-<script src="../bootstrap/assets/js/plugin/jsvectormap/jsvectormap.min.js"></script>
-<script src="../bootstrap/assets/js/plugin/jsvectormap/world.js"></script>
-<!-- Google Maps Plugin -->
-<script src="../bootstrap/assets/js/plugin/gmaps/gmaps.js"></script>
 <!-- Sweet Alert -->
 <script src="../bootstrap/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
 <!-- Kaiadmin JS -->

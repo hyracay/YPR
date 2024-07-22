@@ -69,7 +69,6 @@ if (isset($_POST['submit'])) {
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    // Retrieve existing profile data
     $query = "SELECT * FROM profiles_archive WHERE id = '$id'";
     $result = mysqli_query($conn, $query);
 
@@ -155,8 +154,17 @@ if (isset($_POST['update'])) {
     $result = mysqli_query($conn, $update);
 
     if ($result) {
+        // Archive profiles with age > 30
+        $archive_profiles = "INSERT INTO profiles_archive (SELECT * FROM profiles WHERE age > 30)";
+        if (mysqli_query($conn, $archive_profiles)) {
+            $delete_archived_profiles = "DELETE FROM profiles WHERE age > 30";
+            if (mysqli_query($conn, $delete_archived_profiles)) {
+                // $message = "Error deleting archived profiles: " . mysqli_error($conn);
+            }
+        } else {
+          header("location: profiles.php");
+        }
         header("location: archive.php");
-        echo "<script>alert('Record updated successfully');</script>";
     } else {
         echo "<script>alert('Error');</script>";
     }
@@ -207,6 +215,67 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
     <link rel="stylesheet" href="../bootstrap/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../bootstrap/assets/css/plugins.min.css" />
     <link rel="stylesheet" href="../bootstrap/assets/css/kaiadmin.min.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .container {
+            padding: 20px;
+        }
+        form {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td {
+            padding: 10px;
+            vertical-align: top;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        input[type="radio"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            box-sizing: border-box;
+        }
+        input[type="radio"] {
+            width: auto;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            cursor: pointer;
+            width: 100%;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        @media (max-width: 600px) {
+            td {
+                display: block;
+                width: 100%;
+            }
+            input[type="radio"] {
+                margin-right: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
 <div class="wrapper">
@@ -342,20 +411,18 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
             </nav>
         </div>
         
-
-        
-    <!-- Core JS Files -->
-<!-- Core JS Files -->
-<script src="../bootstrap/assets/js/core/jquery-3.7.1.min.js"></script>
-<script src="../bootstrap/assets/js/core/popper.min.js"></script>
-<script src="../bootstrap/assets/js/core/bootstrap.min.js"></script>
-<!-- jQuery Scrollbar -->
-<script src="../bootstrap/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-<!-- Chart JS -->
-<script src="../bootstrap/assets/js/plugin/chart.js/chart.min.js"></script><div class="content">
+        <!-- Core JS Files -->
+        <script src="../bootstrap/assets/js/core/jquery-3.7.1.min.js"></script>
+        <script src="../bootstrap/assets/js/core/popper.min.js"></script>
+        <script src="../bootstrap/assets/js/core/bootstrap.min.js"></script>
+        <!-- jQuery Scrollbar -->
+        <script src="../bootstrap/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+        <!-- Chart JS -->
+        <script src="../bootstrap/assets/js/plugin/chart.js/chart.min.js"></script><div class="content">
             <br><br><br>
-            <h3>Update Profile</h3>
-        <form method="POST" action="update_archive.php?id=<?php echo $id; ?>">
+            <div class="container"></div>
+            <center><h3>Update Profile</h3></center>
+            <form method="POST" action="update_archive.php?id=<?php echo $id; ?>">
             <input type="hidden" name="id" value="<?php echo $profile['id']; ?>">
             <table>
                 <tr>
@@ -363,64 +430,60 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
                 </tr>
                 <tr>
                     <td>
-                        Name: <input type="text" name="lname" placeholder="Last Name" value="<?php echo $profile['lname']; ?>" required>
-                              <input type="text" name="fname" placeholder="First Name" value="<?php echo $profile['fname']; ?>" required>
-                              <input type="text" name="mname" placeholder="Middle Name" value="<?php echo $profile['mname']; ?>" required>
-                              <input type="text" name="suffix" placeholder="Suffix" value="<?php echo $profile['suffix']; ?>" >
+                        Name: <input class="form-control" type="text" name="lname" placeholder="Last Name" value="<?php echo $profile['lname']; ?>" required>
+                              <input class="form-control" type="text" name="fname" placeholder="First Name" value="<?php echo $profile['fname']; ?>" required>
+                              <input class="form-control" type="text" name="mname" placeholder="Middle Name" value="<?php echo $profile['mname']; ?>" required>
+                              <input class="form-control" type="text" name="suffix" placeholder="Suffix" value="<?php echo $profile['suffix']; ?>" >
                     </td>
                 </tr>
                 <tr>
                     <td><br>
-                        Location: <input type="text" name="region" placeholder="Region" value="<?php echo $profile['region']; ?>" required>
-                                  <input type="text" name="province" placeholder="Province" value="<?php echo $profile['province']; ?>" required>
-                                  <input type="text" name="municipality" placeholder="Municipality" value="<?php echo $profile['municipality']; ?>" required>
-                                  <input type="text" name="barangay" placeholder="Barangay" value="<?php echo $profile['barangay']; ?>" required>
-                                  <input type="text" name="sitio" placeholder="Sitio" value="<?php echo $profile['sitio']; ?>" required>
-                                  <input type="text" name="purok" placeholder="Purok/Zone" value="<?php echo $profile['purok']; ?>">
-                                  <input type="text" name="house_number" placeholder="House Number" value="<?php echo $profile['house_number']; ?>" required>
+                        Address: <input class="form-control" type="text" name="region" placeholder="Region" value="<?php echo $profile['region']; ?>" readonly>
+                                  <input class="form-control" type="text" name="province" placeholder="Province" value="<?php echo $profile['province']; ?>" readonly>
+                                  <input class="form-control" type="text" name="municipality" placeholder="Municipality" value="<?php echo $profile['municipality']; ?>" readonly>
+                                  <input class="form-control" type="text" name="barangay" placeholder="Barangay" value="<?php echo $profile['barangay']; ?>" readonly>
+                                  <input class="form-control" type="text" name="sitio" placeholder="Sitio" value="<?php echo $profile['sitio']; ?>" required>
+                                  <input class="form-control" type="text" name="purok" placeholder="Purok/Zone" value="<?php echo $profile['purok']; ?>">
+                                  <input class="form-control" type="text" name="house_number" placeholder="House Number" value="<?php echo $profile['house_number']; ?>" required>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <tr>
                         <table>
                             <tr><br>
-                                <td style="border: 1px solid;">
-                                    Sex : <br>
-                                    <input type="radio" name="sex" value="Male" <?php if ($profile['sex'] == 'Male') echo 'checked'; ?> required>Male<br>
-                                    <input type="radio" name="sex" value="Female" <?php if ($profile['sex'] == 'Female') echo 'checked'; ?> required>Female
-                                </td>
+                            <div class="col-sm-4">
+                                <div class="form-group form-group-default">
+                                    <label>Sex:</label>
+                                    <div class="d-flex">
+                                    <input type="radio" name="sex" value="Male" <?php if ($profile['sex'] == 'Male') echo 'checked'; ?> required>&nbsp;&nbsp;Male &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="sex" value="Female" <?php if ($profile['sex'] == 'Female') echo 'checked'; ?> required>&nbsp;&nbsp;Female
+                                    </div>
+                                </div>
+                            </div>
                                 <td>
                                 <td>
                                 Birth Date:<br>
-                                <select name="birth_month" required onchange="calculateAge()">
+                                <select class="form-control" name="birth_month" required onchange="calculateAge()">
                                     <option value="">Month</option>
                                     <?php for ($m = 1; $m <= 12; ++$m) { ?>
                                         <option value="<?php echo $m; ?>" <?php if ($profile['birth_month'] == $m) echo 'selected'; ?>><?php echo date('F', mktime(0, 0, 0, $m, 1)); ?></option>
                                     <?php } ?>
                                 </select>
-                                <select name="birth_day" required onchange="calculateAge()">
+                                <select class="form-control" name="birth_day" required onchange="calculateAge()">
                                     <option value="">Day</option>
                                     <?php for ($d = 1; $d <= 31; ++$d) { ?>
                                         <option value="<?php echo $d; ?>" <?php if ($profile['birth_day'] == $d) echo 'selected'; ?>><?php echo $d; ?></option>
                                     <?php } ?>
                                 </select>
-                                <input type="text" name="birth_year" placeholder="Year" value="<?php echo $profile['birth_year']; ?>" required onchange="calculateAge()">
+                                <input class="form-control" type="text" name="birth_year" placeholder="Year" value="<?php echo $profile['birth_year']; ?>" required onchange="calculateAge()">
                                 <td>
                                     Age:<br>
-                                    <input type="text" name="age" style="width: 20%" id="age" value="<?php echo $profile['age']; ?>" readonly>
+                                    <input class="form-control" type="text" name="age" style="width: 40%" id="age" value="<?php echo $profile['age']; ?>" readonly>
                                 </td>
                                 <tr>
-                                    <td>
-                                        Youth with Specific Needs:<br>
-                                        <input type="text" name="youth_with_needs" value="<?php echo $profile['youth_with_needs']; ?>" placeholder="Specify specific needs">
-                                    </td>
+                                    Email Address: <input class="form-control" type="email" name="email" placeholder="Email Address" value="<?php echo $profile['email']; ?>" required><br><br>
+                                    Contact Number: <input class="form-control" type="text" name="contactnumber" placeholder="Contact Number" value="<?php echo $profile['contactnumber']; ?>" required>
+                                    Youth with Specific Needs:<br><input class="form-control" type="text" name="youth_with_needs" value="<?php echo $profile['youth_with_needs']; ?>" placeholder="Specify specific needs">
                                 </tr>
-                                </tr>
-                                        
-                                    Email Address: <input type="email" name="email" placeholder="Email Address" value="<?php echo $profile['email']; ?>" required><br><br>
-                                    
-                                    Contact Number: <input type="text" name="contactnumber" placeholder="Contact Number" value="<?php echo $profile['contactnumber']; ?>" required>
-                                </td>
                             </tr>
                         </table>
                     </td>
@@ -432,20 +495,24 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
                     <td>
                         <table>
                             <tr>
-                                <td style="border: 1px solid;">
-                                    Civil Status:<br>
-                                    <input type="radio" name="civil_status" value="Single" <?php if ($profile['civil_status'] == 'Single') echo 'checked'; ?> required>Single<br>
-                                    <input type="radio" name="civil_status" value="Married" <?php if ($profile['civil_status'] == 'Married') echo 'checked'; ?> required>Married<br>
-                                    <input type="radio" name="civil_status" value="Divorced" <?php if ($profile['civil_status'] == 'Divorced') echo 'checked'; ?> required>Divorced<br>
-                                    <input type="radio" name="civil_status" value="Widowed" <?php if ($profile['civil_status'] == 'Widowed') echo 'checked'; ?> required>Widowed<br>
-                                </td>
-                                <td style="border: 1px solid;">
-                                    Youth Classification:<br>
-                                    <input type="radio" name="youth_classification" value="In School Youth" <?php if ($profile['youth_classification'] == 'In School Youth') echo 'checked'; ?> required>In Youth School<br>
-                                    <input type="radio" name="youth_classification" value="Out of School Youth" <?php if ($profile['youth_classification'] == 'Out of School Youth') echo 'checked'; ?> required>Out of School Youth<br>
-                                    <input type="radio" name="youth_classification" value="Working Youth" <?php if ($profile['youth_classification'] == 'Working Youth') echo 'checked'; ?> required>Working Youth<br>
-                                    <input type="radio" name="youth_classification" value="Person with Disability" <?php if ($profile['youth_classification'] == 'Person with Disability') echo 'checked'; ?> required>Person with Disability<br>
-                                </td>
+                            <div class="col-md-12">
+                                <div class="form-group form-group-default">
+                                    <label>Civil Status:</label>
+                                    <input type="radio" name="civil_status" value="Single" <?php if ($profile['civil_status'] == 'Single') echo 'checked'; ?> required> Single <br>
+                                    <input type="radio" name="civil_status" value="Married" <?php if ($profile['civil_status'] == 'Married') echo 'checked'; ?> required> Married <br>
+                                    <input type="radio" name="civil_status" value="Divorced" <?php if ($profile['civil_status'] == 'Divorced') echo 'checked'; ?> required> Divorced <br>
+                                    <input type="radio" name="civil_status" value="Widowed" <?php if ($profile['civil_status'] == 'Widowed') echo 'checked'; ?> required> Widowed <br>
+                                </div>
+                                </div>
+                                <div class="col-md-12">
+                                <div class="form-group form-group-default">
+                                    <label>Youth Classification:</label>
+                                    <input type="radio" name="youth_classification" value="In School Youth" <?php if ($profile['youth_classification'] == 'In School Youth') echo 'checked'; ?> required> In School Youth <br>
+                                    <input type="radio" name="youth_classification" value="Out Of School Youth" <?php if ($profile['youth_classification'] == 'Out Of School Youth') echo 'checked'; ?> required> Out Of School Youth <br>
+                                    <input type="radio" name="youth_classification" value="Working Youth" <?php if ($profile['youth_classification'] == 'Working Youth') echo 'checked'; ?> required> Working Youth <br>
+                                    <input type="radio" name="youth_classification" value="Person With Disability" <?php if ($profile['youth_classification'] == 'Person With Disability') echo 'checked'; ?> required> Person With Disability<br>
+                                </div>
+                                </div>
                             </tr>
                         </table>
                     </td>
@@ -460,14 +527,16 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
                                     <input type="radio" name="age_group" value="Core Youth" <?php if ($profile['age_group'] == 'Core Youth') echo 'checked'; ?> viewonly>Core Youth (18-24 yrs. old)<br>
                                     <input type="radio" name="age_group" value="Young Adult" <?php if ($profile['age_group'] == 'Young Adult') echo 'checked'; ?> viewonly>Young Adult (25-30 yrs. old)<br>
                                 </td>
-                                <td style="border: 1px solid;">
-                                    Work Status:<br>
-                                    <input type="radio" name="work_status" value="Employed" <?php if ($profile['work_status'] == 'Student') echo 'checked'; ?> required>Student<br>
-                                    <input type="radio" name="work_status" value="Employed" <?php if ($profile['work_status'] == 'Employed') echo 'checked'; ?> required>Employed<br>
-                                    <input type="radio" name="work_status" value="Unemployed" <?php if ($profile['work_status'] == 'Unemployed') echo 'checked'; ?> required>Unemployed<br>
-                                    <input type="radio" name="work_status" value="Self-Employed" <?php if ($profile['work_status'] == 'Self-Employed') echo 'checked'; ?> required>Self-Employed<br>
-                                    <input type="radio" name="work_status" value="Currently looking for job" <?php if ($profile['work_status'] == 'Currently looking for job') echo 'checked'; ?> required>Currently looking for job<br>
-                                </td>
+                                <div class="col-sm-12">
+                                <div class="form-group form-group-default">
+                                    <label>Work Status:</label>
+                                    <input type="radio" name="work_status" value="Student" <?php if ($profile['work_status'] == 'Student') echo 'checked'; ?> required> Student <br>
+                                    <input type="radio" name="work_status" value="Employed" <?php if ($profile['work_status'] == 'Employed') echo 'checked'; ?> required> Employed <br>
+                                    <input type="radio" name="work_status" value="Unemployed" <?php if ($profile['work_status'] == 'Unemployed') echo 'checked'; ?> required> Unemployed <br>
+                                    <input type="radio" name="work_status" value="Self-Employed" <?php if ($profile['work_status'] == 'Self-Employed') echo 'checked'; ?> required> Self-Employed <br>
+                                    <input type="radio" name="work_status" value="Currently looking for job" <?php if ($profile['work_status'] == 'Currently looking for job') echo 'checked'; ?> required> Currently Looking For Job <br>
+                                </div>
+                                </div>
                             </tr>
                         </table>
                     </td>
@@ -476,20 +545,22 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
                     <td>
                         <table>
                             <tr>
-                                <td style="border: 1px solid;">
-                                    Educational Background:<br>
-                                    <input type="radio" name="educational_background" value="Elementary Level" <?php if ($profile['educational_background'] == 'Elementary Level') echo 'checked'; ?> required>Elementary Level<br>
-                                    <input type="radio" name="educational_background" value="Elementary Graduate" <?php if ($profile['educational_background'] == 'Elementary Graduate') echo 'checked'; ?> required>Elementary Graduate<br>
-                                    <input type="radio" name="educational_background" value="High School Level" <?php if ($profile['educational_background'] == 'High School Level') echo 'checked'; ?> required>High School Level<br>
-                                    <input type="radio" name="educational_background" value="High School Graduate" <?php if ($profile['educational_background'] == 'High School Graduate') echo 'checked'; ?> required>High School Graduate<br>
-                                    <input type="radio" name="educational_background" value="Vocational Graduate" <?php if ($profile['educational_background'] == 'Vocational Graduate') echo 'checked'; ?> required>Vocational Graduate<br>
-                                    <input type="radio" name="educational_background" value="College Level" <?php if ($profile['educational_background'] == 'College Level') echo 'checked'; ?> required>College Level<br>
-                                    <input type="radio" name="educational_background" value="College Graduate" <?php if ($profile['educational_background'] == 'College Graduate') echo 'checked'; ?> required>College Graduate<br>
-                                    <input type="radio" name="educational_background" value="Master Level" <?php if ($profile['educational_background'] == 'Master Level') echo 'checked'; ?> required>Master's Level<br>
-                                    <input type="radio" name="educational_background" value="Master Graduate" <?php if ($profile['educational_background'] == 'Master Graduate') echo 'checked'; ?> required>Master's Graduate<br>
-                                    <input type="radio" name="educational_background" value="Doctorate Level" <?php if ($profile['educational_background'] == 'Doctorate Level') echo 'checked'; ?> required>Doctorate Level<br>
-                                </td>
-                                <tr>
+                            <div class="col-sm-12">
+                            <div class="form-group form-group-default">
+                                <label>Educational Background:</label>
+                                <input type="radio" name="educational_background" value="Elementary Level" <?php if ($profile['educational_background'] == 'Elementary Level') echo 'checked'; ?> required> Elementary Level <br>
+                                <input type="radio" name="educational_background" value="Elementary Graduate" <?php if ($profile['educational_background'] == 'Elementary Graduate') echo 'checked'; ?> required> Elementary Graduate <br>
+                                <input type="radio" name="educational_background" value="High School Level" <?php if ($profile['educational_background'] == 'High School Level') echo 'checked'; ?> required> High School Level <br>
+                                <input type="radio" name="educational_background" value="High School Graduate" <?php if ($profile['educational_background'] == 'High School Graduate') echo 'checked'; ?> required> High School Graduate <br>
+                                <input type="radio" name="educational_background" value="Vocational Graduate" <?php if ($profile['educational_background'] == 'Vocational Graduate') echo 'checked'; ?> required> Vocational Graduate <br>
+                                <input type="radio" name="educational_background" value="College Level" <?php if ($profile['educational_background'] == 'College Level') echo 'checked'; ?> required> College Level <br>
+                                <input type="radio" name="educational_background" value="College Graduate" <?php if ($profile['educational_background'] == 'College Graduate') echo 'checked'; ?> required> College Graduate <br>
+                                <input type="radio" name="educational_background" value="Master Level" <?php if ($profile['educational_background'] == 'Master Level') echo 'checked'; ?> required> Master's Level <br>
+                                <input type="radio" name="educational_background" value="Master Graduate" <?php if ($profile['educational_background'] == 'Master Graduate') echo 'checked'; ?> required> Master's Graduate <br>
+                                <input type="radio" name="educational_background" value="Doctorate Level" <?php if ($profile['educational_background'] == 'Doctorate Level') echo 'checked'; ?> required> Doctorate Level <br>
+                            </div>
+                            </div>
+                            </tr>
                     <td>
                         Registered SK Voter:<br>
                         <input type="radio" name="register_sk_voter" value="Registered" <?php if ($profile['register_sk_voter'] == 'Registered') echo 'checked'; ?> required> Registered
@@ -506,47 +577,32 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
                     </td>
                     </tr>
                   <tr>
-    <td>III. Participation in KK</td>
-</tr>
-<tr>
-    <td>
-        Attended KK:<br>
-        <input type="radio" name="attended_kk" value="Yes" <?php if ($profile['attended_kk'] == 'Yes') echo 'checked'; ?> required> Yes
-        <input type="radio" name="attended_kk" value="No" <?php if ($profile['attended_kk'] == 'No') echo 'checked'; ?> required> No
-    </td>
-    <td>
-        Times Attended KK:<br>
-        <input type="number" name="times_attended_kk" placeholder="Times Attended KK" value="<?php echo $profile['times_attended_kk']; ?>" required>
-    </td>
-    <td>
-        No Why:<br>
-        <input type="text" name="no_why" placeholder="No Why" value="<?php echo $profile['no_why']; ?>" >
-    </td>
-</tr>
+        <td>III. Participation in KK</td>
+        </tr>
+        <tr>
+            <td>
+                Have you attended any KK assembly?:<br>
+                <input type="radio" name="attended_kk" value="Yes" <?php if ($profile['attended_kk'] == 'Yes') echo 'checked'; ?> required> Yes
+                <input type="radio" name="attended_kk" value="No" <?php if ($profile['attended_kk'] == 'No') echo 'checked'; ?> required> No
+            </td>
+            <td>
+                Times attended KK assembly:<br>
+                <input class="form-control" type="number" name="times_attended_kk" placeholder="Times Attended KK" value="<?php echo $profile['times_attended_kk']; ?>" required>
+            </td>
+            <td>
+                If no, why?:<br>
+                <input class="form-control" type="text" name="no_why" value="<?php echo $profile['no_why']; ?>" >
+            </td>
+        </tr>
 
-                <tr>
-                    <td><br><button type="submit" name="update">Update</button></td>
-                </tr>
+            <tr>
+                <td><button type="submit" name="update" class="btn btn-primary btn-round ms-auto">
+                <i class="fa fa-check"></i> Update </button></td>
+            </tr>
             </table>
-        </form>
     </div>
-<!-- jQuery Sparkline -->
-<script src="../bootstrap/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
-<!-- Chart Circle -->
-<script src="../bootstrap/assets/js/plugin/chart-circle/circles.min.js"></script>
-<!-- Datatables -->
-<script src="../bootstrap/assets/js/plugin/datatables/datatables.min.js"></script>
-<!-- Bootstrap Notify -->
-<script src="../bootstrap/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
-<!-- jQuery Vector Maps -->
-<script src="../bootstrap/assets/js/plugin/jsvectormap/jsvectormap.min.js"></script>
-<script src="../bootstrap/assets/js/plugin/jsvectormap/world.js"></script>
-<!-- Google Maps Plugin -->
-<script src="../bootstrap/assets/js/plugin/gmaps/gmaps.js"></script>
-<!-- Sweet Alert -->
-<script src="../bootstrap/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
-<!-- Kaiadmin JS -->
-<script src="../bootstrap/assets/js/kaiadmin.min.js"></script>
+    </form>
+    </div>
     <script>
     function calculateAge() {
         var birthMonth = document.getElementsByName("birth_month")[0].value;
@@ -554,15 +610,12 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
         var birthYear = document.getElementsByName("birth_year")[0].value;
 
         if (birthMonth && birthDay && birthYear) {
-            // Create a date string in the format accepted by Date constructor
             var birthDateString = birthYear + '-' + birthMonth + '-' + birthDay;
             var birthDate = new Date(birthDateString);
 
-            // Adjust for Manila time zone (GMT+8)
-            var manilaOffset = 8 * 60; // Offset in minutes
+            var manilaOffset = 8 * 60;
             birthDate.setMinutes(birthDate.getMinutes() + manilaOffset);
 
-            // Now proceed with age calculation as before
             var today = new Date();
             var age = today.getFullYear() - birthDate.getFullYear();
             var monthDiff = today.getMonth() - birthDate.getMonth();
@@ -593,5 +646,17 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
         }
     }
 </script>
+<!-- jQuery Sparkline -->
+<script src="../bootstrap/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+<!-- Chart Circle -->
+<script src="../bootstrap/assets/js/plugin/chart-circle/circles.min.js"></script>
+<!-- Datatables -->
+<script src="../bootstrap/assets/js/plugin/datatables/datatables.min.js"></script>
+<!-- Bootstrap Notify -->
+<script src="../bootstrap/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+<!-- Sweet Alert -->
+<script src="../bootstrap/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+<!-- Kaiadmin JS -->
+<script src="../bootstrap/assets/js/kaiadmin.min.js"></script>
 </body>
 </html>

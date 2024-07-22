@@ -69,7 +69,6 @@ if (isset($_POST['submit'])) {
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    // Retrieve existing profile data
     $query = "SELECT * FROM profiles WHERE id = '$id'";
     $result = mysqli_query($conn, $query);
 
@@ -415,22 +414,18 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
             </nav>
         </div>
         
-
-        
-    <!-- Core JS Files -->
-<!-- Core JS Files -->
-<script src="../bootstrap/assets/js/core/jquery-3.7.1.min.js"></script>
-<script src="../bootstrap/assets/js/core/popper.min.js"></script>
-<script src="../bootstrap/assets/js/core/bootstrap.min.js"></script>
-<!-- jQuery Scrollbar -->
-<script src="../bootstrap/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-<!-- Chart JS -->
-<script src="../bootstrap/assets/js/plugin/chart.js/chart.min.js"></script>< class="content">
+        <!-- Core JS Files -->
+        <script src="../bootstrap/assets/js/core/jquery-3.7.1.min.js"></script>
+        <script src="../bootstrap/assets/js/core/popper.min.js"></script>
+        <script src="../bootstrap/assets/js/core/bootstrap.min.js"></script>
+        <!-- jQuery Scrollbar -->
+        <script src="../bootstrap/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+        <!-- Chart JS -->
+        <script src="../bootstrap/assets/js/plugin/chart.js/chart.min.js"></script>< class="content">
             <br><br><br>
-            
             <div class="container">
             <center><h3>Update Profile</h3></center>
-        <form method="POST" action="update.php?id=<?php echo $id; ?>">
+            <form method="POST" action="update.php?id=<?php echo $id; ?>">
             <input type="hidden" name="id" value="<?php echo $profile['id']; ?>">
             <table>
                 <tr>
@@ -602,12 +597,11 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
                 <input class="form-control" type="text" name="no_why" value="<?php echo $profile['no_why']; ?>" >
             </td>
         </tr>
-
             <tr>
                 <td><button type="submit" name="update" class="btn btn-primary btn-round ms-auto">
                 <i class="fa fa-check"></i> Update </button></td>
             </tr>
-            </table>
+    </table>
     </div>
     </form>
     </div>

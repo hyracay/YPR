@@ -262,7 +262,7 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
                             $fullName = $fname . ' ' . $lname;
                             ?>
                             <tr>
-                                <td><center><input type="checkbox" name="selectedProfiles[]" value="<?= $id; ?>"></center></td>
+                               
                                 <td><?= $fullName; ?></td>
                                 <td style="text-transform:lowercase"><?= $email; ?></td>
                                 <td><?= $role; ?></td>

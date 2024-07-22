@@ -83,7 +83,7 @@ if (isset($_POST['submitAdd'])) {
   $region = $_POST['region'];
   $province = $_POST['province'];
   $municipality = $_POST['municipality'];
-  $barangay = $_POST['barangay'];
+  $barangay_name = $_POST['barangay'];
   $sitio = $_POST['sitio'];
   $purok = $_POST['purok'];
   $house_number = $_POST['house_number'];
@@ -123,7 +123,7 @@ if (isset($_POST['submitAdd'])) {
           sex, age, youth_with_needs, email, birth_month, birth_day, birth_year, contactnumber, civil_status, youth_classification,
           age_group, work_status, educational_background, register_sk_voter, voted_last_election, national_voter, attended_kk, times_attended_kk, no_why, barangay_code)
           VALUES
-          ('$lname', '$fname', '$mname', '$suffix', '$region', '$province', '$municipality', '$barangay','$sitio', '$purok', '$house_number',
+          ('$lname', '$fname', '$mname', '$suffix', '$region', '$province', '$municipality', '$barangay_name','$sitio', '$purok', '$house_number',
           '$sex', '$age', '$youth_with_needs', '$email', '$birth_month', '$birth_day', '$birth_year', '$contactnumber', '$civil_status', '$youth_classification',
           '$ageGroup', '$work_status', '$educational_background', '$register_sk_voter', '$voted_last_election', '$national_voter', '$attended_kk', '$times_attended_kk', '$no_why','$barangay_code')";
 
