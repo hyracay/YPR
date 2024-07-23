@@ -92,6 +92,8 @@ if (isset($_POST['upload'])) {
 
             fclose($file);
             header("location: profiles.php");
+            //update age here
+            
             exit();
             
         } else {
@@ -106,3 +108,49 @@ if (isset($_POST['upload'])) {
     echo "Upload form not submitted.";
     header("location: profiles.php");
 }
+
+?>        
+
+<script>
+function calculateAge() {
+var birth_month = document.getElementById("birth_month").value;
+var birth_day = document.getElementById("birth_day").value;
+var birth_year = document.getElementById("birth_year").value;
+var ageGroup = '';
+// Check if all birthdate parts are selected
+if (birth_month && birth_day && birth_year) {
+    // Create birthdate in Manila time zone
+    var birthDate = new Date(birth_year, birth_month - 1, birth_day, 0, 0, 0);
+    var today = new Date(); // This gets current date in local time zone
+    // Convert today's date to Manila time zone
+    var todayManila = new Date(today.toLocaleString('en-US', {
+    timeZone: 'Asia/Manila'
+    }));
+    // Calculate age
+    var age = todayManila.getFullYear() - birthDate.getFullYear();
+    var monthDiff = todayManila.getMonth() - birthDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && todayManila.getDate() < birthDate.getDate())) {
+    age--;
+    }
+    document.getElementById("age").value = age;
+    // Set age group based on age
+    if (age >= 15 && age <= 17) {
+    ageGroup = 'Child Youth';
+    } else if (age >= 18 && age <= 24) {
+    ageGroup = 'Core Youth';
+    } else if (age >= 25 && age <= 30) {
+    ageGroup = 'Young Adult';
+    }
+    // Check the appropriate radio button for age_group
+    var radios = document.getElementsByName('age_group');
+    for (var i = 0; i < radios.length; i++) {
+    if (radios[i].value === ageGroup) {
+    radios[i].checked = true;
+    }
+    }
+} else {
+    document.getElementById("age").value = "";
+}
+return ageGroup ?? '';
+}
+</script>

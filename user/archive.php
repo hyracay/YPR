@@ -39,7 +39,7 @@ if (mysqli_query($conn, $move_back_profiles)) {
 }
 
 // Fetch profiles to display
-$fetch_profiles = "SELECT id, fname, mname, lname, suffix, email FROM profiles_archive WHERE age > 30 AND barangay_code = '$barangay_code'";
+$fetch_profiles = "SELECT * FROM profiles_archive WHERE barangay_code = '$barangay_code'";
 $result = mysqli_query($conn, $fetch_profiles);
 
 
@@ -301,23 +301,42 @@ while ($row = mysqli_fetch_assoc($fetch_barangay_result)) {
                                                     <tr>
                                                         <td>
                                                             <center><input type="checkbox" name="selectedProfiles[]"
-                                                                    value="<?= $row['id']; ?>"></center>
+                                                            value="<?= $row['id']; ?>"></center>
                                                         </td>
+                                                        <!-- dto mag lagay ng modal -->
                                                         <td><a href="#" class="profileNameLink" data-id="<?= $row['id']; ?>"
-                                                                data-fullname="<?= $row['fname'] . ' ' . $row['mname'] . ' ' . $row['lname']; ?>"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#modal-default"><?= $row['fname'] . ' ' . $row['mname'] . ' ' . $row['lname']; ?></a>
+                                                            data-fullname="<?= $row['fname'] . ' ' . $row['mname'] . ' ' . $row['lname']; ?>"
+                                                            data-address="<?= $row['house_number'] . ', ' . $row['purok'] . ', ' . $row['sitio'] . ', ' . $row['barangay'] . ', ' . $row['municipality'] . ', ' . $row['province'] . ', ' . $row['region']; ?>"
+                                                            data-sex="<?= $row['sex']; ?>"
+                                                            data-age="<?= $row['age']; ?>"
+                                                            data-email="<?= $row['email']; ?>"
+                                                            data-birthday="<?= $row['birth_month'] . '/' . $row['birth_day'] . '/' . $row['birth_year']; ?>"
+                                                            data-youth_with_needs="<?= $row['youth_with_needs']; ?>"
+                                                            data-email="<?= $row['email']; ?>"
+                                                            data-contact_number="<?= $row['contactnumber']; ?>"
+                                                            data-civil_status="<?= $row['civil_status']; ?>"
+                                                            data-age_group="<?= $row['age_group']; ?>"
+                                                            data-educational_background="<?= $row['educational_background']; ?>"
+                                                            data-youth_classification="<?= $row['youth_classification']; ?>"
+                                                            data-work_status="<?= $row['work_status']; ?>"
+                                                            data-national_voter="<?= $row['national_voter']; ?>"
+                                                            data-register_sk_voter="<?= $row['register_sk_voter']; ?>"
+                                                            data-voted_last_election="<?= $row['voted_last_election']; ?>"
+                                                            data-times_attended="<?= $row['times_attended_kk']; ?>"
+                                                            data-reason="<?= $row['no_why']; ?>"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#modal-default"><?= $row['fname'] . ' ' . $row['mname'] . ' ' . $row['lname']; ?></a>
                                                         </td>
                                                         <td>
                                                             <p style="text-transform:lowercase"><?= $row['email']; ?></p>
                                                         </td>
                                                         <td>
                                                             <center><a href="update_archive.php?id=<?= $row['id']; ?>"
-                                                                    class="btn btn-link btn-primary btn-lg"><i
-                                                                        class="fa fa-edit"></i></a><a href="#"
-                                                                    class="btn btn-link btn-danger"
-                                                                    onclick="showDeleteConfirmation(event, <?= htmlspecialchars($row['id']); ?>);"><i
-                                                                        class="fa fa-times"></i></a></center>
+                                                                class="btn btn-link btn-primary btn-lg"><i
+                                                                    class="fa fa-edit"></i></a><a href="#"
+                                                                class="btn btn-link btn-danger"
+                                                                onclick="showDeleteConfirmation(event, <?= htmlspecialchars($row['id']); ?>);"><i
+                                                                class="fa fa-times"></i></a></center>
                                                         </td>
                                                     </tr>
                                                 <?php } ?>
@@ -424,26 +443,6 @@ while ($row = mysqli_fetch_assoc($fetch_barangay_result)) {
                                             </center>
                                         </td>
                                         <td>
-                                            <a href="#" class="profileNameLink" data-id="<?= $row['id']; ?>"
-                                                data-fullname="<?= $row['fname'] . ' ' . $row['mname'] . ' ' . $row['lname']; ?>"
-                                                data-address="<?= $row['house_number'] . ', ' . $row['purok'] . ', ' . $row['sitio'] . ' ' . $row['barangay'] . ', ' . $row['municipality'] . ', ' . $row['province'] . ', ' . $row['region']; ?>"
-                                                data-sex="<?= $row['sex']; ?>" data-age="<?= $row['age']; ?>"
-                                                data-email="<?= $row['email']; ?>"
-                                                data-birthday="<?= $row['birth_month'] . '/' . $row['birth_day'] . '/' . $row['birth_year']; ?>"
-                                                data-youth_with_needs="<?= $row['youth_with_needs']; ?>"
-                                                data-contact_number="<?= $row['contactnumber']; ?>"
-                                                data-civil_status="<?= $row['civil_status']; ?>"
-                                                data-age_group="<?= $row['age_group']; ?>"
-                                                data-educational_background="<?= $row['educational_background']; ?>"
-                                                data-youth_classification="<?= $row['youth_classification']; ?>"
-                                                data-work_status="<?= $row['work_status']; ?>"
-                                                data-national_voter="<?= $row['national_voter']; ?>"
-                                                data-register_sk_voter="<?= $row['register_sk_voter']; ?>"
-                                                data-voted_last_election="<?= $row['voted_last_election']; ?>"
-                                                data-times_attended="<?= $row['times_attended_kk']; ?>"
-                                                data-national_voter="<?= $row['national_voter']; ?>"
-                                                data-reason="<?= $row['no_why']; ?>" data-bs-toggle="modal"
-                                                data-bs-target="#modal-default"><?= $row['fname'] . ' ' . $row['mname'] . ' ' . $row['lname']; ?></a>
                                         </td>
                                         <td>
                                             <p style="text-transform:lowercase"><?= $row['email']; ?></p>
@@ -512,22 +511,22 @@ while ($row = mysqli_fetch_assoc($fetch_barangay_result)) {
                                         var modalContent = `
                                                         <p><strong>Full Name:</strong> ${fullName}</p>
                                                         <p><strong>Address:</strong> ${address}</p>
-                                                        <p><strong>Sex:</strong> ${sex}</p>
-                                                        <p><strong>Age:</strong> ${age}</p>
-                                                        <p><strong>Birthday:</strong> ${birthday}</p>
-                                                        <p><strong>Youth with Needs:</strong> ${youthWithNeeds}</p>
-                                                        <p><strong>Email:</strong> ${email}</p>
-                                                        <p><strong>Contact Number:</strong> ${contactNumber}</p>
-                                                        <p><strong>Civil Status:</strong> ${civilStatus}</p>
-                                                        <p><strong>Age Group:</strong> ${ageGroup}</p>
-                                                        <p><strong>Educational Background:</strong> ${educationalBackground}</p>
-                                                        <p><strong>Youth Classification:</strong> ${youthClassification}</p>
-                                                        <p><strong>Work Status:</strong> ${workStatus}</p>
-                                                        <p><strong>National Voter:</strong> ${nationalVoter}</p>
-                                                        <p><strong>Registered SK Voter:</strong> ${registeredSkVoter}</p>
-                                                        <p><strong>Voted Last Election:</strong> ${votedLastElection}</p>
-                                                        <p><strong>Times Attended:</strong> ${timesAttended}</p>
-                                                        <p><strong>If no, why?</strong> ${reason}</p>
+                                                        <p>	<strong>Sex:</strong> ${sex} </p>
+                                                        <p> <strong>Age:</strong> ${age} </p>
+                                                        <p> <strong>Birthday:</strong> ${birthday} </p>
+                                                        <p>	<strong>Youth with Needs:</strong> ${youthWithNeeds} </p>
+                                                        <p> <strong>Email:</strong> ${email}	</p>
+                                                        <p> <strong>Contact Number:</strong> ${contactNumber} </p>
+                                                        <p> <strong>Civil Status:</strong> ${civilStatus} </p>
+                                                        <p> <strong>Educational Background:</strong> ${educationalBackground} </p>
+                                                        <p> <strong>Youth Classification:</strong> ${youthClassification} </p>
+                                                        <p>	<strong>Work Status:</strong> ${workStatus}	</p>
+                                                        <p> <strong>National Voter:</strong> ${nationalVoter} </p>
+                                                        <p> <strong>Registered SK Voter:</strong> ${registeredSkVoter} </p>
+                                                        <p>	<strong>Voted Last Election:</strong> ${votedLastElection}	</p>
+                                                        <p>	<strong>Times Attended:</strong> ${timesAttended}	</p>
+                                                        <p>	<strong>If no, why?</strong> ${reason} </p>
+                                                        
                                                     `;
 
                                         document.getElementById('modal-body-content').innerHTML = modalContent;

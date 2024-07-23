@@ -150,7 +150,15 @@ if ($role == 'admin') {
               <h4 class="text-section">Components</h4>
             </li>
             <li class="nav-item">
-
+            <li class="nav-item">
+              <li class="nav-item">
+              <a data-bs-toggle="collapse" href="#tables"><i class="fas icon-people"></i><p>Youth Profiles</p><span class="caret"></span></a>
+              <div class="collapse" id="tables">
+                <ul class="nav nav-collapse">
+                  <li><a href="profiles.php"><span class="sub-item">View Profiles</span></a></li>
+                </ul>
+              </div>
+              </li>
             <li class="nav-item"><a data-bs-toggle="collapse" href="#forms"><i class="fas icon-user"></i>
                 <p>User Accounts</p><span class="caret"></span>
               </a>

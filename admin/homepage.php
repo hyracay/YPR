@@ -273,8 +273,9 @@ while ($row = mysqli_fetch_assoc($result_sk)) {
           </form>
           
         <?php } ?>
-
+                
         <br><br>
+        <button id="downloadPdf">Download Charts as PDF</button>
         <div class="row">
           <div class="chart"><div id="civil_status"></div></div>
           <div class="chart"><div id="chart_age"></div></div>
@@ -287,7 +288,7 @@ while ($row = mysqli_fetch_assoc($result_sk)) {
           <div class="chart"><div id="work_status"></div></div>
           <div class="chart"><div id="register_sk_voter"></div></div>
         </div>
-        <button id="downloadPdf">Download Charts as PDF</button>
+      
       </div>
 
       <script>

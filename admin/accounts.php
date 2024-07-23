@@ -259,7 +259,7 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
                         <tr>
                           <th>Name</th>
                           <th>Email</th>
-                          <th>Role</th>
+              
                           <th><center>Actions</center></th>
                         </tr>
                       </thead>
@@ -276,7 +276,7 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
                             <tr>
                                 <td><?= htmlspecialchars($fullName); ?></td>
                                 <td style="text-transform:lowercase"><?= htmlspecialchars($email); ?></td>
-                                <td><?= htmlspecialchars($role); ?></td>
+                            
                                 <td><center>
                                     <a href="update_acc.php?id=<?= htmlspecialchars($id); ?>" class="btn btn-link btn-primary btn-lg" data-bs-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>
                                     <a href="#" class="btn btn-link btn-danger" title="Delete" data-bs-toggle="tooltip"

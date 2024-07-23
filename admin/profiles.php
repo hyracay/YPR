@@ -137,6 +137,8 @@ if (isset($_POST['submitAdd'])) {
         header("location:profiles.php");
     }
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
