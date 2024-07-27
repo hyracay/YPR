@@ -479,14 +479,6 @@ while ($row = mysqli_fetch_assoc($result_sk)) {
 <script src="../bootstrap/assets/js/plugin/chart.js/chart.min.js"></script>
 <!-- jQuery Sparkline -->
 <script src="../bootstrap/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
-<!-- Chart Circle -->
-<script src="../bootstrap/assets/js/plugin/chart-circle/circles.min.js"></script>
-<!-- Datatables -->
-<script src="../bootstrap/assets/js/plugin/datatables/datatables.min.js"></script>
-<!-- Bootstrap Notify -->
-<script src="../bootstrap/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
-<!-- Sweet Alert -->
-<script src="../bootstrap/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
 <!-- Kaiadmin JS -->
 <script src="../bootstrap/assets/js/kaiadmin.min.js"></script>
 </body>
