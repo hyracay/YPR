@@ -34,68 +34,90 @@ function deleteProfile($conn, $id) {
 
 // Function to restore a profile back to the profiles table
 function restoreProfile($conn, $profile_data) {
-    // Assuming the structure of the profile_data matches the table schema
-    $lname = mysqli_real_escape_string($conn, $profile_data['lname']);
-    $fname = mysqli_real_escape_string($conn, $profile_data['fname']);
-    $mname = mysqli_real_escape_string($conn, $profile_data['mname']);
-    $suffix = mysqli_real_escape_string($conn, $profile_data['suffix']);
-    $region = mysqli_real_escape_string($conn, $profile_data['region']);
-    $province = mysqli_real_escape_string($conn, $profile_data['province']);
-    $municipality = mysqli_real_escape_string($conn, $profile_data['municipality']);
-    $barangay = mysqli_real_escape_string($conn, $profile_data['barangay']);
-    $sitio = mysqli_real_escape_string($conn, $profile_data['sitio']);
-    $purok = mysqli_real_escape_string($conn, $profile_data['purok']);
-    $house_number = mysqli_real_escape_string($conn, $profile_data['house_number']);
-    $sex = mysqli_real_escape_string($conn, $profile_data['sex']);
-    $age = mysqli_real_escape_string($conn, $profile_data['age']);
-    $youth_with_needs = mysqli_real_escape_string($conn, $profile_data['youth_with_needs']);
-    $email = mysqli_real_escape_string($conn, $profile_data['email']);
-    $birth_month = mysqli_real_escape_string($conn, $profile_data['birth_month']);
-    $birth_day = mysqli_real_escape_string($conn, $profile_data['birth_day']);
-    $birth_year = mysqli_real_escape_string($conn, $profile_data['birth_year']);
-    $contactnumber = mysqli_real_escape_string($conn, $profile_data['contactnumber']);
-    $civil_status = mysqli_real_escape_string($conn, $profile_data['civil_status']);
-    $youth_classification = mysqli_real_escape_string($conn, $profile_data['youth_classification']);
-    $age_group = mysqli_real_escape_string($conn, $profile_data['age_group']);
-    $work_status = mysqli_real_escape_string($conn, $profile_data['work_status']);
-    $educational_background = mysqli_real_escape_string($conn, $profile_data['educational_background']);
-    $register_sk_voter = mysqli_real_escape_string($conn, $profile_data['register_sk_voter']);
-    $voted_last_election = mysqli_real_escape_string($conn, $profile_data['voted_last_election']);
-    $national_voter = mysqli_real_escape_string($conn, $profile_data['national_voter']);
-    $attended_kk = mysqli_real_escape_string($conn, $profile_data['attended_kk']);
-    $times_attended_kk = mysqli_real_escape_string($conn, $profile_data['times_attended_kk']);
-    $no_why = mysqli_real_escape_string($conn, $profile_data['no_why']);
-    $barangay_code = mysqli_real_escape_string($conn, $profile_data['barangay_code']);
+  // Extract and escape profile data
+  $lname = mysqli_real_escape_string($conn, $profile_data['lname']);
+  $fname = mysqli_real_escape_string($conn, $profile_data['fname']);
+  $mname = mysqli_real_escape_string($conn, $profile_data['mname']);
+  $suffix = mysqli_real_escape_string($conn, $profile_data['suffix']);
+  $region = mysqli_real_escape_string($conn, $profile_data['region']);
+  $province = mysqli_real_escape_string($conn, $profile_data['province']);
+  $municipality = mysqli_real_escape_string($conn, $profile_data['municipality']);
+  $barangay = mysqli_real_escape_string($conn, $profile_data['barangay']);
+  $sitio = mysqli_real_escape_string($conn, $profile_data['sitio']);
+  $purok = mysqli_real_escape_string($conn, $profile_data['purok']);
+  $house_number = mysqli_real_escape_string($conn, $profile_data['house_number']);
+  $sex = mysqli_real_escape_string($conn, $profile_data['sex']);
+  $age = (int)mysqli_real_escape_string($conn, $profile_data['age']);
+  $youth_with_needs = mysqli_real_escape_string($conn, $profile_data['youth_with_needs']);
+  $email = mysqli_real_escape_string($conn, $profile_data['email']);
+  $birth_month = mysqli_real_escape_string($conn, $profile_data['birth_month']);
+  $birth_day = mysqli_real_escape_string($conn, $profile_data['birth_day']);
+  $birth_year = mysqli_real_escape_string($conn, $profile_data['birth_year']);
+  $contactnumber = mysqli_real_escape_string($conn, $profile_data['contactnumber']);
+  $civil_status = mysqli_real_escape_string($conn, $profile_data['civil_status']);
+  $youth_classification = mysqli_real_escape_string($conn, $profile_data['youth_classification']);
+  $age_group = mysqli_real_escape_string($conn, $profile_data['age_group']);
+  $work_status = mysqli_real_escape_string($conn, $profile_data['work_status']);
+  $educational_background = mysqli_real_escape_string($conn, $profile_data['educational_background']);
+  $register_sk_voter = mysqli_real_escape_string($conn, $profile_data['register_sk_voter']);
+  $voted_last_election = mysqli_real_escape_string($conn, $profile_data['voted_last_election']);
+  $national_voter = mysqli_real_escape_string($conn, $profile_data['national_voter']);
+  $attended_kk = mysqli_real_escape_string($conn, $profile_data['attended_kk']);
+  $times_attended_kk = mysqli_real_escape_string($conn, $profile_data['times_attended_kk']);
+  $no_why = mysqli_real_escape_string($conn, $profile_data['no_why']);
+  $barangay_code = mysqli_real_escape_string($conn, $profile_data['barangay_code']);
 
-    $insert_sql = "INSERT INTO profiles (lname, fname, mname, suffix, region, province, municipality, barangay, sitio, purok, house_number,
-        sex, age, youth_with_needs, email, birth_month, birth_day, birth_year, contactnumber, civil_status, youth_classification,
-        age_group, work_status, educational_background, register_sk_voter, voted_last_election, national_voter, attended_kk, times_attended_kk, no_why, barangay_code)
-        VALUES 
-        ('$lname', '$fname', '$mname', '$suffix', '$region', '$province', '$municipality', '$barangay', '$sitio', '$purok', '$house_number',
-        '$sex', '$age', '$youth_with_needs', '$email', '$birth_month', '$birth_day', '$birth_year', '$contactnumber', '$civil_status', '$youth_classification',
-        '$age_group', '$work_status', '$educational_background', '$register_sk_voter', '$voted_last_election', '$national_voter', '$attended_kk', '$times_attended_kk', '$no_why', '$barangay_code')";
+  $table = ($age <= 30) ? 'profiles' : 'profiles_archive';
+  
+  // Check if the record already exists
+  $check_sql = "SELECT id FROM $table WHERE lname = '$lname' AND fname = '$fname' AND mname = '$mname' AND birth_month = '$birth_month' AND birth_day = '$birth_day' AND birth_year = '$birth_year'";
+  $check_result = mysqli_query($conn, $check_sql);
 
-    if (mysqli_query($conn, $insert_sql)) {
-        return true;
-    } else {
-        return false;
-    }
+  if (mysqli_num_rows($check_result) > 0) {
+      // Record already exists, do not insert
+      return false;
+  }
+
+  $insert_sql = "INSERT INTO $table (lname, fname, mname, suffix, region, province, municipality, barangay, sitio, purok, house_number,
+      sex, age, youth_with_needs, email, birth_month, birth_day, birth_year, contactnumber, civil_status, youth_classification,
+      age_group, work_status, educational_background, register_sk_voter, voted_last_election, national_voter, attended_kk, times_attended_kk, no_why, barangay_code)
+      VALUES 
+      ('$lname', '$fname', '$mname', '$suffix', '$region', '$province', '$municipality', '$barangay', '$sitio', '$purok', '$house_number',
+      '$sex', '$age', '$youth_with_needs', '$email', '$birth_month', '$birth_day', '$birth_year', '$contactnumber', '$civil_status', '$youth_classification',
+      '$age_group', '$work_status', '$educational_background', '$register_sk_voter', '$voted_last_election', '$national_voter', '$attended_kk', '$times_attended_kk', '$no_why', '$barangay_code')";
+
+  return mysqli_query($conn, $insert_sql);
 }
 
 if (isset($_GET['action']) && isset($_GET['id'])) {
-    $action = $_GET['action'];
-    $id = $_GET['id'];
-    if ($action === 'restore') {
+  $action = $_GET['action'];
+  $id = $_GET['id'];
+
+  if ($action === 'restore') {
+      // Fetch the profile data from the recycle bin
       $select_sql = "SELECT * FROM delete_profile WHERE id = '$id'";
       $result = mysqli_query($conn, $select_sql);
-      $profile_data = mysqli_fetch_assoc($result);
+      if ($result && mysqli_num_rows($result) > 0) {
+          $profile_data = mysqli_fetch_assoc($result);
+          $age = (int)$profile_data['age'];
 
-      restoreProfile($conn, $profile_data);
-      deleteProfile($conn, $id);
+          // Restore the profile based on age
+          $success = restoreProfile($conn, $profile_data);
 
-      header('location: recycle.php');
-    }
+          if ($success) {
+              // Delete the profile from the recycle bin after successful restoration
+              deleteProfile($conn, $id);
+              header('Location: recycle.php');
+              exit;
+          } else {
+              echo "Error restoring profile.";
+          }
+      } else {
+          echo "Profile not found.";
+      }
+  }
 }
+
 ?>
 
 <!DOCTYPE html>

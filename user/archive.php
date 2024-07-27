@@ -28,9 +28,9 @@ if (isset($_SESSION['role'])) {
 // }
 
 // Move profiles with age < 30 back to profiles
-$move_back_profiles = "INSERT INTO profiles (SELECT * FROM profiles_archive WHERE age < 31)";
+$move_back_profiles = "INSERT INTO profiles (SELECT * FROM profiles_archive WHERE age <= 30)";
 if (mysqli_query($conn, $move_back_profiles)) {
-    $delete_moved_back_profiles = "DELETE FROM profiles_archive WHERE age < 31";
+    $delete_moved_back_profiles = "DELETE FROM profiles_archive WHERE age <= 30";
     if (!mysqli_query($conn, $delete_moved_back_profiles)) {
         $message = "Error deleting moved-back profiles: " . mysqli_error($conn);
     }
