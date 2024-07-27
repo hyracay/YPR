@@ -558,8 +558,8 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
                                 <input type="radio" name="educational_background" value="Vocational Graduate" <?php if ($profile['educational_background'] == 'Vocational Graduate') echo 'checked'; ?> required> Vocational Graduate <br>
                                 <input type="radio" name="educational_background" value="College Level" <?php if ($profile['educational_background'] == 'College Level') echo 'checked'; ?> required> College Level <br>
                                 <input type="radio" name="educational_background" value="College Graduate" <?php if ($profile['educational_background'] == 'College Graduate') echo 'checked'; ?> required> College Graduate <br>
-                                <input type="radio" name="educational_background" value="Master Level" <?php if ($profile['educational_background'] == 'Master Level') echo 'checked'; ?> required> Master's Level <br>
-                                <input type="radio" name="educational_background" value="Master Graduate" <?php if ($profile['educational_background'] == 'Master Graduate') echo 'checked'; ?> required> Master's Graduate <br>
+                                <input type="radio" name="educational_background" value="Master Level" <?php if ($profile['educational_background'] == 'Masters Level') echo 'checked'; ?> required> Master's Level <br>
+                                <input type="radio" name="educational_background" value="Master Graduate" <?php if ($profile['educational_background'] == 'Masters Graduate') echo 'checked'; ?> required> Master's Graduate <br>
                                 <input type="radio" name="educational_background" value="Doctorate Level" <?php if ($profile['educational_background'] == 'Doctorate Level') echo 'checked'; ?> required> Doctorate Level <br>
                             </div>
                             </div>

@@ -287,7 +287,7 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
             <div id="modalInside"></div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js"></script>
+    <script src="../bootstrap/assets/css/index.global.min.js"></script>
     <script>
         const results = <?= json_encode($results); ?>;
         var resultsToShow = results.map(item => ({
@@ -341,6 +341,19 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
         });
     </script>
     <style>
+
+    .fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-frame {
+    background-color: #cce3e2 !important;
+    }
+
+    .fc-event .fc-event-title {
+    color: #1d1e4a !important;
+    }
+
+    .fc-direction-ltr .fc-daygrid-event.fc-event-end {
+      background-color: cadetblue !important;
+    }
+
     .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */

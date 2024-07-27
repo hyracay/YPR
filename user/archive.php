@@ -15,17 +15,17 @@ if (isset($_SESSION['role'])) {
     exit();
 }
 
-// Archive profiles with age > 30
-$archive_profiles = "INSERT INTO profiles_archive (SELECT * FROM profiles WHERE age > 30)";
+// // Archive profiles with age > 30
+// $archive_profiles = "INSERT INTO profiles_archive (SELECT * FROM profiles WHERE age > 30)";
 
-if (mysqli_query($conn, $archive_profiles)) {
-    $delete_archived_profiles = "DELETE FROM profiles WHERE age > 30";
-    if (!mysqli_query($conn, $delete_archived_profiles)) {
-        $message = "Error deleting archived profiles: " . mysqli_error($conn);
-    }
-} else {
-    $message = "Error archiving profiles: " . mysqli_error($conn);
-}
+// if (mysqli_query($conn, $archive_profiles)) {
+//     $delete_archived_profiles = "DELETE FROM profiles WHERE age > 30";
+//     if (!mysqli_query($conn, $delete_archived_profiles)) {
+//         $message = "Error deleting archived profiles: " . mysqli_error($conn);
+//     }
+// } else {
+//     $message = "Error archiving profiles: " . mysqli_error($conn);
+// }
 
 // Move profiles with age < 30 back to profiles
 $move_back_profiles = "INSERT INTO profiles (SELECT * FROM profiles_archive WHERE age < 31)";
@@ -67,7 +67,7 @@ if (isset($_GET['delete_id'])) {
 
 $barangay_code = "";
 $code = $_SESSION['code'];
-$fetch_barangay = "SELECT * FROM barangay WHERE CODE = '$_SESSION[code]'";
+$fetch_barangay = "SELECT * FROM barangay WHERE CODE = '$code' ";
 $fetch_barangay_result = mysqli_query($conn, $fetch_barangay);
 while ($row = mysqli_fetch_assoc($fetch_barangay_result)) {
     $barangay_code = $row['Brngy'];

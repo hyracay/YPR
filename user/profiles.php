@@ -60,7 +60,7 @@ if (isset($_POST['advancesearch'])) {
                 ";
     } else {
         $sql = "SELECT * FROM profiles 
-                WHERE barangay_code = '$barangay_code'
+                WHERE age <=30 AND barangay_code = '$barangay_code'
                 ORDER BY id DESC 
                 ";
     }

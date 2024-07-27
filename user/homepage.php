@@ -2,6 +2,74 @@
 session_start();
 include("../connection/conne.php");
 
+// update age when loggin in
+date_default_timezone_set('Asia/Manila');
+            $get_data = "SELECT * FROM profiles";
+            $get_result = mysqli_query($conn, $get_data);
+            while($row = mysqli_fetch_array($get_result)){
+                $get_id = $row['id'];
+                $get_lname = $row['lname'];
+                $get_fname = $row['fname'];
+                $get_mname = $row['mname'];
+                $get_suffix = $row['suffix'];
+                $get_region = $row['region'];
+                $get_province = $row['province'];
+                $get_municipality = $row['municipality'];
+                $get_barangay = $row['barangay'];
+                $get_sitio = $row['sitio'];
+                $get_purok = $row['purok'];
+                $get_house_number = $row['house_number'];
+                $get_sex = $row['sex'];
+                $get_age = $row['age'];
+                $get_youth_with_needs = $row['youth_with_needs'];
+                $get_email = $row['email'];
+                
+                $get_year = $row['birth_year'];
+                $get_month = $row['birth_month'];
+                $get_day = $row['birth_day'];
+
+                $get_bday = strval($get_day.".".$get_month.".".$get_year);
+                $bday = new DateTime($get_bday);
+                $date_today = new DateTime(date('m.d.y'));
+                $new_age = $date_today -> diff($bday);
+                $age = $new_age -> y;
+
+                $get_contactnumber= $row['contactnumber'];
+                $get_civil_status = $row['civil_status'];
+                $get_youthclassification = $row['youth_classification'];
+                $get_agegroup= $row['age_group'];
+                $get_workstatus= $row['work_status'];
+                $get_educationalbackground= $row['educational_background'];
+                $get_registerSKvoter = $row['register_sk_voter'];
+                $get_voted_last_election= $row['voted_last_election'];
+                $get_national_voter = $row['national_voter'];
+                $get_attended_kk = $row['attended_kk'];
+                $get_times_attended_kk = $row['times_attended_kk'];
+                $get_no_why = $row['no_why'];
+                $get_barangay_code = $row['barangay_code'];
+                
+                $update_age = "UPDATE profiles SET lname = '$get_lname',fname = '$get_fname',
+                mname='$get_mname',suffix='$get_suffix',region='$get_region',province='$get_province',municipality='$get_municipality',
+                barangay='$get_barangay',sitio='$get_sitio',purok='$get_purok',house_number='$get_house_number',sex='$get_sex',
+                age='$age',youth_with_needs='$get_youth_with_needs',email='$get_email',birth_month='$get_month',
+                `birth_day`='$get_day',`birth_year`='$get_year',`contactnumber`='$get_contactnumber',`civil_status`='$get_civil_status',
+                `youth_classification`='$get_youthclassification',`age_group`='$get_agegroup',`work_status`='$get_workstatus',
+                `educational_background`='$get_educationalbackground',`register_sk_voter`='$get_registerSKvoter',`voted_last_election`='$get_voted_last_election',
+                `national_voter`='$get_national_voter',`attended_kk`='$get_attended_kk',`times_attended_kk`='$get_times_attended_kk',`no_why`='$get_no_why',
+                `barangay_code`='$get_barangay_code' WHERE id = '$get_id' ";
+                $result_update = mysqli_query($conn, $update_age);
+
+                if($age > 30){
+                    // echo $get_id . " " . $row['fname'] . "<br>";
+                    $insert = "INSERT INTO profiles_archive SELECT * FROM profiles WHERE id = '$get_id' ";
+                    $insert_result = mysqli_query($conn, $insert);
+
+                    $delete_oa = "DELETE FROM profiles WHERE id = '$get_id' ";
+                    $delete_result = mysqli_query($conn, $delete_oa);
+                }
+            }
+
+
 // Ensure session email is set, otherwise redirect
 if (!isset($_SESSION['USER'])) {
   header("location:../index.php");
