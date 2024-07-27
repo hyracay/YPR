@@ -304,12 +304,7 @@ while ($row = mysqli_fetch_assoc($result_sk)) {
         <div class="page-header">
           <h4 class="page-title">Demographic Insights</h4>
         </div>
-
-            </select>
-          </form>
-          
- <button id="downloadPdf">Download Charts as PDF</button>
-        <br><br>
+        <button class="btn btn-primary mt-3" id="downloadPdf">Download Charts as PDF</button>
         <div class="row">
           <div class="chart"><div id="civil_status"></div></div>
           <div class="chart"><div id="chart_age"></div></div>
@@ -353,7 +348,7 @@ while ($row = mysqli_fetch_assoc($result_sk)) {
             $display = $row['register_sk_voter'] == 'Registered' ? 'Registered' : 'Not Registered';
             return ['name' => $display, 'y' => (int)$row['count']];
           }, $data_sk_array)); ?>;
-const chartOptions = {
+      const chartOptions = {
       chart: { plotBackgroundColor: null, plotBorderWidth: null, plotShadow: false, type: 'pie' },
       tooltip: { pointFormat: '{series.name}: <b>{point.y}</b>' },
       accessibility: { point: { valueSuffix: '%' } },
@@ -361,7 +356,7 @@ const chartOptions = {
         pie: {
           allowPointSelect: true, cursor: 'pointer',
           dataLabels: { enabled: true, format: '<b>{point.name}</b>: {point.y}' },
-          showInLegend: true
+          // showInLegend: true
         }
       },
       legend: {
@@ -490,11 +485,6 @@ const chartOptions = {
 <script src="../bootstrap/assets/js/plugin/datatables/datatables.min.js"></script>
 <!-- Bootstrap Notify -->
 <script src="../bootstrap/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
-<!-- jQuery Vector Maps -->
-<script src="../bootstrap/assets/js/plugin/jsvectormap/jsvectormap.min.js"></script>
-<script src="../bootstrap/assets/js/plugin/jsvectormap/world.js"></script>
-<!-- Google Maps Plugin -->
-<script src="../bootstrap/assets/js/plugin/gmaps/gmaps.js"></script>
 <!-- Sweet Alert -->
 <script src="../bootstrap/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
 <!-- Kaiadmin JS -->

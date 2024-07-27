@@ -273,9 +273,7 @@ while ($row = mysqli_fetch_assoc($result_sk)) {
           </form>
           
         <?php } ?>
-                
-        <br><br>
-        <button id="downloadPdf">Download Charts as PDF</button>
+        <button class="btn btn-primary mt-3" id="downloadPdf">Download Charts as PDF</button>
         <div class="row">
           <div class="chart"><div id="civil_status"></div></div>
           <div class="chart"><div id="chart_age"></div></div>
@@ -329,7 +327,7 @@ while ($row = mysqli_fetch_assoc($result_sk)) {
               pie: {
                 allowPointSelect: true, cursor: 'pointer',
                 dataLabels: { enabled: true, format: '<b>{point.name}</b>: {point.y}' },
-                showInLegend: true
+                // showInLegend: true
               }
             },
             series: [{ name: 'Civil Status', colorByPoint: true, data: civData }]
@@ -344,7 +342,7 @@ while ($row = mysqli_fetch_assoc($result_sk)) {
               pie: {
                 allowPointSelect: true, cursor: 'pointer',
                 dataLabels: { enabled: true, format: '<b>{point.name}</b>: {point.y}' },
-                showInLegend: true
+                // showInLegend: true
               }
             },
             series: [{ name: 'Age Group', colorByPoint: true, data: ageData }]
@@ -359,7 +357,7 @@ while ($row = mysqli_fetch_assoc($result_sk)) {
               pie: {
                 allowPointSelect: true, cursor: 'pointer',
                 dataLabels: { enabled: true, format: '<b>{point.name}</b>: {point.y}' },
-                showInLegend: true
+                // showInLegend: true
               }
             },
             series: [{ name: 'Educational Background', colorByPoint: true, data: eduData }]
@@ -374,7 +372,7 @@ while ($row = mysqli_fetch_assoc($result_sk)) {
               pie: {
                 allowPointSelect: true, cursor: 'pointer',
                 dataLabels: { enabled: true, format: '<b>{point.name}</b>: {point.y}' },
-                showInLegend: true
+                // showInLegend: true
               }
             },
             series: [{ name: 'Youth Classification', colorByPoint: true, data: youthClassData }]
@@ -389,7 +387,7 @@ while ($row = mysqli_fetch_assoc($result_sk)) {
               pie: {
                 allowPointSelect: true, cursor: 'pointer',
                 dataLabels: { enabled: true, format: '<b>{point.name}</b>: {point.y}' },
-                showInLegend: true
+                // showInLegend: true
               }
             },
             series: [{ name: 'Work Status', colorByPoint: true, data: workStatusData }]
@@ -404,7 +402,7 @@ while ($row = mysqli_fetch_assoc($result_sk)) {
               pie: {
                 allowPointSelect: true, cursor: 'pointer',
                 dataLabels: { enabled: true, format: '<b>{point.name}</b>: {point.y}' },
-                showInLegend: true
+                // showInLegend: true
               }
             },
             series: [{ name: 'Registered SK Voter', colorByPoint: true, data: skVoterData }]
