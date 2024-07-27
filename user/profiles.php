@@ -419,10 +419,10 @@ if (isset($_POST['submitAdd'])) {
               <thead>
                <tr role="row">
                 <th tabindex="0" aria-controls="basic-datatables" rowspan="1" colspan="1" style="width: 30.516px;">
-                <button type="button" class="btn btn-default" data-bs-toggle="tooltip"
+                <center><button type="button" class="btn btn-default" data-bs-toggle="tooltip"
                   title="Delete Selected" onclick="showDeleteConfirmationMultiple(event);">
                   <i style="font-size: 17pt" class="fa fa-trash-alt"></i>
-                </button>
+                </button></center>
                 </th>
                 <th class="sorting_asc" tabindex="1" aria-controls="basic-datatables" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 541.766px;">Name</th>
                 <th tabindex="2" aria-controls="basic-datatables" rowspan="1" colspan="1" style="width: 365.516px;">Email</th>
@@ -931,7 +931,7 @@ if (isset($_POST['submitAdd'])) {
                   .then((willDelete) => {
                     if (willDelete) {
                       //change this before deploy
-                      window.location.href = `/YPR-FINAL-ULTRA-PRO-MAX/user/delete.php?id=${id}`;
+                      window.location.href = `/YPR/user/delete.php?id=${id}`;
                     } else {
                       swal("The profiles are safe.", {
                         icon: "info",

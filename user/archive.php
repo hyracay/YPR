@@ -378,7 +378,7 @@ while ($row = mysqli_fetch_assoc($fetch_barangay_result)) {
                                     .then((willDelete) => {
                                         if (willDelete) {
                                             //change this before deploy
-                                            window.location.href = `/YPR-FINAL-ULTRA-PRO-MAX/user/delete_archive.php?id=${id}`;
+                                            window.location.href = `/YPR/user/delete_archive.php?id=${id}`;
                                         } else {
                                             swal("The profiles are safe.", {
                                                 icon: "info",
