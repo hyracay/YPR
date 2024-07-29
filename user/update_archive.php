@@ -46,7 +46,7 @@ if (isset($_POST['submit'])) {
     $times_attended_kk = $_POST['times_attended_kk'];
     $no_why = $_POST['no_why'];
 
-    $insert = "INSERT INTO profiles
+    $insert = "UPDATE INTO profiles
             (lname, fname, mname, suffix, region, province, municipality, barangay, sitio, purok, house_number,
              sex, age, email, birth_month, birth_day, birth_year, contactnumber, civil_status, youth_classification,
              age_group, work_status, educational_background, register_sk_voter, voted_last_election, national_voter, attended_kk, times_attended_kk, no_why)
@@ -155,9 +155,9 @@ if (isset($_POST['update'])) {
 
     if ($result) {
         // Archive profiles with age > 30
-        $archive_profiles = "INSERT INTO profiles_archive (SELECT * FROM profiles WHERE age > 30)";
+        $archive_profiles = "INSERT INTO profiles (SELECT * FROM profiles_archive WHERE age < 31)";
         if (mysqli_query($conn, $archive_profiles)) {
-            $delete_archived_profiles = "DELETE FROM profiles WHERE age > 30";
+            $delete_archived_profiles = "DELETE FROM profiles_archive WHERE age < 31";
             if (mysqli_query($conn, $delete_archived_profiles)) {
                 // $message = "Error deleting archived profiles: " . mysqli_error($conn);
             }
@@ -556,7 +556,7 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
                                 <input type="radio" name="educational_background" value="Vocational Graduate" <?php if ($profile['educational_background'] == 'Vocational Graduate') echo 'checked'; ?> required> Vocational Graduate <br>
                                 <input type="radio" name="educational_background" value="College Level" <?php if ($profile['educational_background'] == 'College Level') echo 'checked'; ?> required> College Level <br>
                                 <input type="radio" name="educational_background" value="College Graduate" <?php if ($profile['educational_background'] == 'College Graduate') echo 'checked'; ?> required> College Graduate <br>
-                                <input type="radio" name="educational_background" value="Masters Level" <?php if ($profile['educational_background'] == 'Masters Level') echo 'checked'; ?> required> Masters Level <br>
+                                <input type="radio" name="educational_background" value="Masters Level" <?php if ($profile['educational_background'] == 'Masters Level') echo 'checked'; ?> required> Master's Level <br>
                                 <input type="radio" name="educational_background" value="Masters Graduate" <?php if ($profile['educational_background'] == 'Masters Graduate') echo 'checked'; ?> required> Master's Graduate <br>
                                 <input type="radio" name="educational_background" value="Doctorate Level" <?php if ($profile['educational_background'] == 'Doctorate Level') echo 'checked'; ?> required> Doctorate Level <br>
                             </div>
