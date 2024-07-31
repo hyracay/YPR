@@ -133,11 +133,11 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
                         <span class="sub-item">View Accounts</span>
                       </a>
                     </li>
-                    <li>
+                    <!-- <li>
                       <a href="createacc.php">
                         <span class="sub-item">Create Account</span>
                       </a>
-                    </li>
+                    </li> -->
                   </ul>
                 </div>
               </li>
@@ -279,12 +279,12 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
                             
                                 <td><center>
                                     <a href="update_acc.php?id=<?= htmlspecialchars($id); ?>" class="btn btn-link btn-primary btn-lg" data-bs-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>
-                                    <a href="#" class="btn btn-link btn-danger" title="Delete" data-bs-toggle="tooltip"
-                                      onclick='showDeleteConfirmation(event, <?= json_encode($id); ?>);'><i class="fa fa-times"></i></a>
+                                    <!-- <a href="#" class="btn btn-link btn-danger" title="Delete" data-bs-toggle="tooltip"
+                                      onclick='showDeleteConfirmation(event, <?= json_encode($id); ?>);'><i class="fa fa-times"></i></a> -->
                                 </center></td>
                             </tr>
                         <?php } ?>
-                        <script>
+                        <!-- <script>
                         function deleteProfile(id) {
                             const xhr = new XMLHttpRequest();
                             xhr.open("POST", "delete_acc.php", true);
@@ -318,9 +318,7 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
                                 }
                             });
                         }
-                        </script>
-
-
+                        </script> -->
                       </tbody>
                     </table>
                 </div>

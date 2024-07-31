@@ -229,7 +229,7 @@ if (isset($_POST['submitAdd'])) {
                         <div class="collapse" id="forms">
                             <ul class="nav nav-collapse">
                               <li><a href="accounts.php"><span class="sub-item">View Accounts</span></a></li>
-                              <li><a href="createacc.php"><span class="sub-item">Create Account</span></a></li>
+                              <!-- <li><a href="createacc.php"><span class="sub-item">Create Account</span></a></li> -->
                             </ul>
                         </div>
                     </li>

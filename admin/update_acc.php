@@ -165,7 +165,7 @@ if ($role == 'admin') {
               <div class="collapse" id="forms">
                 <ul class="nav nav-collapse">
                   <li><a href="accounts.php"><span class="sub-item">View Accounts</span></a></li>
-                  <li><a href="createacc.php"><span class="sub-item">Create Account</span></a></li>
+                  <!-- <li><a href="createacc.php"><span class="sub-item">Create Account</span></a></li> -->
                 </ul>
               </div>
             </li>
@@ -255,7 +255,7 @@ if ($role == 'admin') {
           <div class="col-md-8">
             <div class="card">
               <div class="card-body">
-                <h3 class="mt-4 text-center">Update Account</h3>
+                <h3 class="mt-4 text-center">Change Password</h3>
                 <?php if ($error): ?>
                   <p class="text-danger text-center"><?php echo $error; ?></p>
                 <?php endif; ?>
@@ -266,7 +266,7 @@ if ($role == 'admin') {
                     <label for="email" class="col-sm-3 col-form-label">Email:</label>
                     <div class="col-sm-9">
                       <input type="email" class="form-control" id="email" name="email" value="<?= $account['email']; ?>"
-                        style="width: 100%;" required>
+                        style="width: 100%;" readonly required>
                     </div>
                   </div>
                   <div class="mb-3 row">
@@ -283,7 +283,7 @@ if ($role == 'admin') {
                         placeholder="Confirm password" style="width: 100%;">
                     </div>
                   </div>
-                  <div class="mb-3 row">
+                  <!-- <div class="mb-3 row">
                     <label for="fname" class="col-sm-3 col-form-label">First Name:</label>
                     <div class="col-sm-9">
                       <input type="text" class="form-control" id="fname" name="fname"
@@ -296,8 +296,8 @@ if ($role == 'admin') {
                       <input type="text" class="form-control" id="lname" name="lname"
                         value="<?= $account['LastName']; ?>" style="width: 100%;" required>
                     </div>
-                  </div>
-                  <input type="hidden" id="role" name="role" value="user">
+                  </div> -->
+                  <!-- <input type="hidden" id="role" name="role" value="user"> -->
                   <div class="mb-3 row">
                     <div class="col-sm-3"></div>
                     <div class="col-sm-9 text-center">

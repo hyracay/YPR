@@ -41,16 +41,24 @@ if (isset($_POST['submit'])) {
       // Hash the password using password_hash
       $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-      // Insert new user into database
-      $sql_insert = "INSERT INTO account(email, password, FirstName, LastName, role, code) 
-                     VALUES('$email', '$hashed_password', '$FirstName', '$LastName', '$role', '$code')";
-      $result_insert = mysqli_query($conn, $sql_insert);
-
-      if ($result_insert) {
-          $form_submitted = true;
-          header("location:createacc.php");
-      } else {
-          echo "<script>alert('Error registering user.');</script>";
+      $fetch_records = mysqli_query($conn, "SELECT * FROM account WHERE role = 'user'");
+      $rec = mysqli_num_rows($fetch_records);
+      if ($rec > 15){
+        echo '<script>
+                alert("ACCOUNTS ALREADY FULL...");
+              </script>';
+      }else {
+        // Insert new user into database
+        $sql_insert = "INSERT INTO account(email, password, FirstName, LastName, role, code) 
+                       VALUES('$email', '$hashed_password', '$FirstName', '$LastName', '$role', '$code')";
+        $result_insert = mysqli_query($conn, $sql_insert);
+  
+        if ($result_insert) {
+            $form_submitted = true;
+            header("location:createacc.php");
+        } else {
+            echo "<script>alert('Error registering user.');</script>";
+        }
       }
   }
 }
