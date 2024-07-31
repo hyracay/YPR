@@ -196,7 +196,7 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
                           </div>
                           <div class="u-text">
                             
-                            <h4><?php echo $_SESSION['fname'] . " " . $_SESSION['lname']; ?></h4>
+                            <!-- <h4><?php echo $_SESSION['fname'] . " " . $_SESSION['lname']; ?></h4> -->
                             <p class="text-muted"><?php echo $_SESSION['email']; ?></p>
                           </div>
                         </div>
@@ -245,7 +245,7 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
                     <thead>
                         <tr>
                           
-                          <th>Name</th>
+                          <!-- <th>Name</th> -->
                           <th>Email</th>
                           <th>Role</th>
                           <th><center>Actions</center></th>
@@ -255,15 +255,15 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
                         <?php
                         while ($row = mysqli_fetch_assoc($sql_result)) {
                             $id = $row['id'];
-                            $lname = $row['LastName'];
-                            $fname = $row['FirstName'];
+                            // $lname = $row['LastName'];
+                            // $fname = $row['FirstName'];
                             $email = $row['email'];
                             $role = $row['role'];
-                            $fullName = $fname . ' ' . $lname;
+                            // $fullName = $fname . ' ' . $lname;
                             ?>
                             <tr>
                                
-                                <td><?= $fullName; ?></td>
+                                <!-- <td><?= $fullName; ?></td> -->
                                 <td style="text-transform:lowercase"><?= $email; ?></td>
                                 <td><?= $role; ?></td>
                                 <td><center>

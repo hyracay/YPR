@@ -242,7 +242,7 @@ if ($role == 'admin') {
           <div class="col-md-8">
             <div class="card">
               <div class="card-body">
-                <h3 class="mt-4 text-center">Update Account</h3>
+                <h3 class="mt-4 text-center">Change Password</h3>
                 <?php if ($error): ?>
                   <p class="text-danger text-center"><?php echo $error; ?></p>
                 <?php endif; ?>
@@ -252,7 +252,7 @@ if ($role == 'admin') {
                   <div class="mb-3 row">
                     <label for="email" class="col-sm-3 col-form-label">Email:</label>
                     <div class="col-sm-9">
-                      <input type="email" class="form-control" id="email" name="email" value="<?= $account['email']; ?>"
+                      <input type="email" class="form-control" id="email" name="email" readonly value="<?= $account['email']; ?>"
                         style="width: 100%;" required>
                     </div>
                   </div>
@@ -270,7 +270,7 @@ if ($role == 'admin') {
                         placeholder="Confirm password" style="width: 100%;">
                     </div>
                   </div>
-                  <div class="mb-3 row">
+                  <!-- <div class="mb-3 row">
                     <label for="fname" class="col-sm-3 col-form-label">First Name:</label>
                     <div class="col-sm-9">
                       <input type="text" class="form-control" id="fname" name="fname"
@@ -282,7 +282,7 @@ if ($role == 'admin') {
                     <div class="col-sm-9">
                       <input type="text" class="form-control" id="lname" name="lname"
                         value="<?= $account['LastName']; ?>" style="width: 100%;" required>
-                    </div>
+                    </div> -->
                   </div>
                   <input type="hidden" id="role" name="role" value="admin">
                   <div class="mb-3 row">
