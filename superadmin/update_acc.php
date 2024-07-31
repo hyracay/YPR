@@ -30,8 +30,8 @@ if (isset($_GET['id'])) {
 if (isset($_POST['update'])) {
   $id = $_POST['id'];
   $email = $_POST['email'];
-  $fname = $_POST['fname'];
-  $lname = $_POST['lname'];
+  // $fname = $_POST['fname'];
+  // $lname = $_POST['lname'];
   $role = $_POST['role'];
   $password = $_POST['password'];
   $cpassword = $_POST['cpassword'];

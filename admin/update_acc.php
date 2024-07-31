@@ -283,21 +283,21 @@ if ($role == 'admin') {
                         placeholder="Confirm password" style="width: 100%;">
                     </div>
                   </div>
-                  <!-- <div class="mb-3 row">
+                  <div class="mb-3 row" hidden>
                     <label for="fname" class="col-sm-3 col-form-label">First Name:</label>
                     <div class="col-sm-9">
                       <input type="text" class="form-control" id="fname" name="fname"
                         value="<?= $account['FirstName']; ?>" style="width: 100%;" required>
                     </div>
                   </div>
-                  <div class="mb-3 row">
+                  <div class="mb-3 row" hidden>
                     <label for="lname" class="col-sm-3 col-form-label">Last Name:</label>
                     <div class="col-sm-9">
                       <input type="text" class="form-control" id="lname" name="lname"
                         value="<?= $account['LastName']; ?>" style="width: 100%;" required>
                     </div>
-                  </div> -->
-                  <!-- <input type="hidden" id="role" name="role" value="user"> -->
+                  </div> 
+                  <input type="hidden" id="role" name="role" value="user">
                   <div class="mb-3 row">
                     <div class="col-sm-3"></div>
                     <div class="col-sm-9 text-center">
