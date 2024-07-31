@@ -26,15 +26,15 @@ if (isset($_POST['login'])) {
     
             if ($row['role'] == "superadmin") {
                 $_SESSION["SUPERADMIN"] = $row['role'];
-                header("location:superadmin/accounts.php");
+                header("location:superadmin/index.php");
                 exit;
             } elseif ($row['role'] == "admin") {
                 $_SESSION["ADMIN"] = $row["role"];
-                header("location:admin/homepage.php");
+                header("location:admin/index.php");
                 exit;
             } else {
                 $_SESSION["USER"] = $row["role"];
-                header("location:user/homepage.php");
+                header("location:user/index.php");
                 exit;
             }
         } else {

@@ -180,7 +180,7 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
                          
             <li class="nav-item">
                 <a
-                  href="homepage.php"
+                  href="index.php"
                   aria-expanded="false"
                 >
                   <i class="fas fa-chart-bar"></i>

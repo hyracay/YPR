@@ -55,7 +55,7 @@ if (isset($_POST['update'])) {
       $result = mysqli_query($conn, $update_query);
 
       if ($result) {
-        header("location: accounts.php");
+        header("location: index.php");
         exit();
       } else {
         $error = "Update failed: " . mysqli_error($conn);
@@ -150,8 +150,8 @@ if ($role == 'admin') {
               </a>
               <div class="collapse" id="forms">
                 <ul class="nav nav-collapse">
-                  <li><a href="accounts.php"><span class="sub-item">View Accounts</span></a></li>
-                  <li><a href="createacc.php"><span class="sub-item">Create Account</span></a></li>
+                  <li><a href="index.php"><span class="sub-item">View Accounts</span></a></li>
+                  <!-- <li><a href="createacc.php"><span class="sub-item">Create Account</span></a></li> -->
                 </ul>
               </div>
             </li>
@@ -289,7 +289,7 @@ if ($role == 'admin') {
                     <div class="col-sm-3"></div>
                     <div class="col-sm-9 text-center">
                       <button type="submit" class="btn btn-primary" name="update">Update</button>
-                      <a href="accounts.php" class="btn btn-secondary">Cancel</a>
+                      <a href="index.php" class="btn btn-secondary">Cancel</a>
                     </div>
                   </div>
                 </form>

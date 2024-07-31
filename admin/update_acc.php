@@ -137,7 +137,7 @@ if ($role == 'admin') {
           <ul class="nav nav-secondary">
 
             <li class="nav-item">
-              <a href="homepage.php" aria-expanded="false">
+              <a href="index.php" aria-expanded="false">
                 <i class="fas fa-chart-bar"></i>
                 <p>Dashboard</p>
               </a>

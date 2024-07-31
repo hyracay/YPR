@@ -113,15 +113,15 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
                 <div class="collapse" id="forms">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="accounts.php">
+                      <a href="index.php">
                         <span class="sub-item">View Accounts</span>
                       </a>
                     </li>
-                    <li>
+                    <!-- <li>
                       <a href="createacc.php">
                         <span class="sub-item">Create Account</span>
                       </a>
-                    </li>
+                    </li> -->
                   </ul>
                 </div>
               </li>
@@ -269,9 +269,9 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
                                 <td><center>
                                   <a href="update_acc.php?id=<?= $row['id']; ?>" class="btn btn-link btn-primary btn-lg" data-bs-toggle="tooltip" title="Edit"><i
                                       class="fa fa-edit"></i></a>
-                                  <a href="delete.php?id=<?= $row['id']; ?>" class="btn btn-link btn-danger" title="Delete" data-bs-toggle="tooltip"
+                                  <!-- <a href="delete.php?id=<?= $row['id']; ?>" class="btn btn-link btn-danger" title="Delete" data-bs-toggle="tooltip"
                                     onclick="return confirm('Are you sure you want to delete this profile?');"><i
-                                      class="fa fa-times"></i></a>
+                                      class="fa fa-times"></i></a> -->
                                 </center></td>
                             </tr>
                         <?php } ?>

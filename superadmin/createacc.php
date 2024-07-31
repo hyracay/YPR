@@ -173,7 +173,7 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
                 <div class="collapse" id="forms">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="accounts.php">
+                      <a href="index.php">
                         <span class="sub-item">View Accounts</span>
                       </a>
                     </li>

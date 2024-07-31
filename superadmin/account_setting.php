@@ -175,7 +175,7 @@ if (isset($_POST['submit'])) {
               <div class="collapse" id="forms">
                 <ul class="nav nav-collapse">
                   <li>
-                    <a href="accounts.php">
+                    <a href="index.php">
                       <span class="sub-item">View Accounts</span>
                     </a>
                   </li>
@@ -310,7 +310,7 @@ if (isset($_POST['submit'])) {
 
           <div class="form-group"><center>
             <input type="submit" class="btn btn-primary" name="submit" value="Update">
-            <a href="accounts.php" class="btn btn-secondary">Cancel</a>
+            <a href="index.php" class="btn btn-secondary">Cancel</a>
           </center></div>
         </form>
       </div>

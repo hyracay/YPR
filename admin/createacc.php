@@ -163,7 +163,7 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
             echo '              
             <li class="nav-item">
                 <a
-                  href="homepage.php"
+                  href="index.php"
                   aria-expanded="false"
                 >
                   <i class="fas fa-chart-bar"></i>
