@@ -118,7 +118,7 @@ if (isset($_POST['submitAdd'])) {
   }
 
   // Insert into database
-  $insert = "INSERT INTO profiles
+  $insert1 = "INSERT INTO profiles
           (lname, fname, mname, suffix, region, province, municipality, barangay, sitio, purok, house_number,
           sex, age, youth_with_needs, email, birth_month, birth_day, birth_year, contactnumber, civil_status, youth_classification,
           age_group, work_status, educational_background, register_sk_voter, voted_last_election, national_voter, attended_kk, times_attended_kk, no_why, barangay_code)
@@ -127,8 +127,18 @@ if (isset($_POST['submitAdd'])) {
           '$sex', '$age', '$youth_with_needs', '$email', '$birth_month', '$birth_day', '$birth_year', '$contactnumber', '$civil_status', '$youth_classification',
           '$ageGroup', '$work_status', '$educational_background', '$register_sk_voter', '$voted_last_election', '$national_voter', '$attended_kk', '$times_attended_kk', '$no_why','$barangay_code')";
 
-  $result = mysqli_query($conn, $insert);
-  if ($result) {
+  $insert2 = "INSERT INTO profiles_backup
+          (lname, fname, mname, suffix, region, province, municipality, barangay, sitio, purok, house_number,
+          sex, age, youth_with_needs, email, birth_month, birth_day, birth_year, contactnumber, civil_status, youth_classification,
+          age_group, work_status, educational_background, register_sk_voter, voted_last_election, national_voter, attended_kk, times_attended_kk, no_why, barangay_code)
+          VALUES
+          ('$lname', '$fname', '$mname', '$suffix', '$region', '$province', '$municipality', '$barangay_name','$sitio', '$purok', '$house_number',
+          '$sex', '$age', '$youth_with_needs', '$email', '$birth_month', '$birth_day', '$birth_year', '$contactnumber', '$civil_status', '$youth_classification',
+          '$ageGroup', '$work_status', '$educational_background', '$register_sk_voter', '$voted_last_election', '$national_voter', '$attended_kk', '$times_attended_kk', '$no_why','$barangay_code')";
+
+  $result1 = mysqli_query($conn, $insert1);
+  $result2 = mysqli_query($conn, $insert2);
+  if ($result1 && $result2) {
       header("location:profiles.php");
   }
 }

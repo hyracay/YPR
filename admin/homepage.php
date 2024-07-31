@@ -409,67 +409,82 @@ while ($row = mysqli_fetch_assoc($result_sk)) {
           });
         });
 
-        document.getElementById('downloadPdf').addEventListener('click', function () {
-  const { jsPDF } = window.jspdf;
-  const pdf = new jsPDF('p', 'mm', 'a4');
+                document.getElementById('downloadPdf').addEventListener('click', function () {
+          const { jsPDF } = window.jspdf;
+          const pdf = new jsPDF('p', 'mm', 'a4');
 
-  const chartsConfig = [
-    { id: 'civil_status', width: 275, height: 80 },
-    { id: 'chart_age', width: 275, height: 80 },
-    { id: 'chart_edu', width: 260, height: 80 },
-    { id: 'youth_classification', width: 275, height: 80 },
-    { id: 'work_status', width: 275, height: 80 },
-    { id: 'register_sk_voter', width: 275, height: 80 }
-  ];
+          const chartsConfig = [
+            { id: 'civil_status', width: 275, height: 80 },
+            { id: 'chart_age', width: 275, height: 80 },
+            { id: 'chart_edu', width: 260, height: 80 },
+            { id: 'youth_classification', width: 275, height: 80 },
+            { id: 'work_status', width: 275, height: 80 },
+            { id: 'register_sk_voter', width: 275, height: 80 }
+          ];
 
-  const margin = 10; // Margin from the edges of the page
-  const spacing = 10; // Space between charts
+          const margin = 17; // Margin from the edges of the page
+          const spacing = 10; // Space between charts
 
-  // Function to capture and add charts to PDF
-  const captureChart = async (chartConfig, xPos, yPos) => {
-    const chartElement = document.getElementById(chartConfig.id);
-    if (chartElement) {
-      const scale = 2; // Increase the scale for better resolution
-      const canvas = await html2canvas(chartElement, { backgroundColor: null, scale: scale });
-      const imgData = canvas.toDataURL('image/png');
+          // Function to capture and add charts to PDF
+          const captureChart = async (chartConfig, xPos, yPos) => {
+            const chartElement = document.getElementById(chartConfig.id);
+            if (chartElement) {
+              const scale = 2; // Increase the scale for better resolution
+              const canvas = await html2canvas(chartElement, { backgroundColor: null, scale: scale });
+              const imgData = canvas.toDataURL('image/png');
 
-      // Calculate the center position
-      const centeredXPos = (pdf.internal.pageSize.getWidth() - chartConfig.width) / 2;
+              // Calculate the center position
+              const centeredXPos = (pdf.internal.pageSize.getWidth() - chartConfig.width) / 2;
 
-      pdf.addImage(imgData, 'PNG', centeredXPos, yPos, chartConfig.width, chartConfig.height);
-    }
-  };
+              pdf.addImage(imgData, 'PNG', centeredXPos, yPos, chartConfig.width, chartConfig.height);
+            }
+          };
 
-  // Function to handle page layout
-  const generateChartsPage = async (startIndex, endIndex) => {
-    let yPos = margin;
+          // Function to handle page layout
+          const generateChartsPage = async (startIndex, endIndex) => {
+            let yPos = margin;
 
-    for (let i = startIndex; i < endIndex; i++) {
-      await captureChart(chartsConfig[i], 0, yPos);
+            for (let i = startIndex; i < endIndex; i++) {
+              await captureChart(chartsConfig[i], 0, yPos);
 
-      yPos += chartsConfig[i].height + spacing;
+              yPos += chartsConfig[i].height + spacing;
 
-      if ((i - startIndex + 1) % 3 === 0 && i < endIndex - 1) {
-        pdf.addPage();
-        yPos = margin;
-      }
-    }
-  };
+              if ((i - startIndex + 1) % 3 === 0 && i < endIndex - 1) {
+                pdf.addPage();
+                yPos = margin;
+              }
+            }
+          };
 
-  // Generate pages
-  (async () => {
-    for (let i = 0; i < chartsConfig.length; i += 3) {
-      await generateChartsPage(i, Math.min(i + 3, chartsConfig.length));
-      if (i + 3 < chartsConfig.length) {
-        pdf.addPage();
-      }
-    }
+          // Generate pages
+          (async () => {
+            // Add heading before charts
+            const barangayName = '<?php echo $barangay_name; ?>';
+            const headerText = `${barangayName} La Trinidad Youth Profiling System`;
 
-    pdf.save('charts.pdf');
-  })().catch(error => {
-    console.error('Error generating PDF:', error);
-  });
-});
+            pdf.setFontSize(15);
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const textWidth = pdf.getTextWidth(headerText);
+            const textXPosition = (pageWidth - textWidth) / 2;
+
+            pdf.text(headerText, textXPosition, margin / 2);
+
+            let initialYPos = margin; // Adjust the position below the heading
+            for (let i = 0; i < chartsConfig.length; i += 3) {
+              await generateChartsPage(i, Math.min(i + 3, chartsConfig.length));
+              if (i + 3 < chartsConfig.length) {
+                pdf.addPage();
+                pdf.text(headerText, textXPosition, margin / 2); // Add header to the new page
+              }
+            }
+
+            pdf.save('charts.pdf');
+          })().catch(error => {
+            console.error('Error generating PDF:', error);
+          });
+        });
+
+
 
       </script>
     </div>

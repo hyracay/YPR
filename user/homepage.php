@@ -403,7 +403,7 @@ while ($row = mysqli_fetch_assoc($result_sk)) {
     });
   });
 
-    document.getElementById('downloadPdf').addEventListener('click', function () {
+  document.getElementById('downloadPdf').addEventListener('click', function () {
   const { jsPDF } = window.jspdf;
   const pdf = new jsPDF('p', 'mm', 'a4');
 
@@ -416,7 +416,7 @@ while ($row = mysqli_fetch_assoc($result_sk)) {
     { id: 'register_sk_voter', width: 275, height: 80 }
   ];
 
-  const margin = 10; // Margin from the edges of the page
+  const margin = 17; // Margin from the edges of the page
   const spacing = 10; // Space between charts
 
   // Function to capture and add charts to PDF
@@ -452,10 +452,23 @@ while ($row = mysqli_fetch_assoc($result_sk)) {
 
   // Generate pages
   (async () => {
+    // Add heading before charts
+    const barangayName = '<?php echo $barangay_code; ?>';
+    const headerText = `${barangayName} La Trinidad Youth Profiling System`;
+
+    pdf.setFontSize(15);
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const textWidth = pdf.getTextWidth(headerText);
+    const textXPosition = (pageWidth - textWidth) / 2;
+
+    pdf.text(headerText, textXPosition, margin / 2);
+
+    let initialYPos = margin; // Adjust the position below the heading
     for (let i = 0; i < chartsConfig.length; i += 3) {
       await generateChartsPage(i, Math.min(i + 3, chartsConfig.length));
       if (i + 3 < chartsConfig.length) {
         pdf.addPage();
+        pdf.text(headerText, textXPosition, margin / 2); // Add header to the new page
       }
     }
 
@@ -464,6 +477,7 @@ while ($row = mysqli_fetch_assoc($result_sk)) {
     console.error('Error generating PDF:', error);
   });
 });
+
 
   </script>
     </div>

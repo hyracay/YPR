@@ -16,16 +16,16 @@ if (isset($_SESSION['role'])) {
 }
 
 // // Archive profiles with age > 30
-// $archive_profiles = "INSERT INTO profiles_archive (SELECT * FROM profiles WHERE age > 30)";
+$archive_profiles = "INSERT INTO profiles_archive (SELECT * FROM profiles WHERE age > 30)";
 
-// if (mysqli_query($conn, $archive_profiles)) {
-//     $delete_archived_profiles = "DELETE FROM profiles WHERE age > 30";
-//     if (!mysqli_query($conn, $delete_archived_profiles)) {
-//         $message = "Error deleting archived profiles: " . mysqli_error($conn);
-//     }
-// } else {
-//     $message = "Error archiving profiles: " . mysqli_error($conn);
-// }
+if (mysqli_query($conn, $archive_profiles)) {
+    $delete_archived_profiles = "DELETE FROM profiles WHERE age > 30";
+    if (!mysqli_query($conn, $delete_archived_profiles)) {
+        $message = "Error deleting archived profiles: " . mysqli_error($conn);
+    }
+} else {
+    $message = "Error archiving profiles: " . mysqli_error($conn);
+}
 
 // Move profiles with age < 30 back to profiles
 $move_back_profiles = "INSERT INTO profiles (SELECT * FROM profiles_archive WHERE age <= 30)";
