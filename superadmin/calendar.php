@@ -338,11 +338,26 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
             `;
         }
 
+        
         function deleteEvent(eventId) {
-            if (confirm('Are you sure you want to delete this event?')) {
-                window.location.href = `calendar.php?event_id=${eventId}`;
-            }
+            swal({
+                title: "Are you sure?",
+                text: "Are you sure you want to delete this event?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    // Change this URL as needed
+                    window.location.href = `calendar.php?event_id=${eventId}`;
+                } else {
+                    swal("The event is safe.", {
+                        icon: "info",
+                    });
+                }
+            });
         }
+        
 
         addEventBtn.addEventListener('click', function () {
             createEvent();
@@ -544,5 +559,8 @@ a {
 
     <!-- Kaiadmin JS -->
     <script src="../bootstrap/assets/js/kaiadmin.min.js"></script>
+
+    <!-- Sweet Alert -->
+    <script src="../bootstrap/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
 </body>
 </html>
