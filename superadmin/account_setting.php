@@ -297,26 +297,44 @@ if (isset($_POST['submit'])) {
           </div>
 
           <div class="form-group">
-            <label for="password">New Password:</label>
-            <input type="password" class="form-control" id="password" name="password"
-              placeholder="Leave blank to keep current password">
-          </div>
+          <label for="password">New Password:</label>
+          <input type="password" class="form-control" id="password" name="password"
+            placeholder="Leave blank to keep current password">
+        </div>
 
-          <div class="form-group">
-            <label for="cpassword">Confirm New Password:</label>
-            <input type="password" class="form-control" id="cpassword" name="cpassword"
-              placeholder="Leave blank to keep current password">
-          </div>
+        <div class="form-group">
+          <label for="cpassword">Confirm New Password:</label>
+          <input type="password" class="form-control" id="cpassword" name="cpassword"
+            placeholder="Leave blank to keep current password">
+        </div>
 
-          <div class="form-group"><center>
-            <input type="submit" class="btn btn-primary" name="submit" value="Update">
+        <div class="form-group">
+          <center>
+            <input type="submit" class="btn btn-primary" name="submit" value="Update" onclick="return checkPasswordMatch()">
             <a href="index.php" class="btn btn-secondary">Cancel</a>
-          </center></div>
-        </form>
-      </div>
-    </div>
-    </div>
-  </div>
+          </center>
+        </div>
+
+  <!-- Swal -->
+  <script>
+  function checkPasswordMatch() {
+    var password = document.getElementById("password").value;
+    var cpassword = document.getElementById("cpassword").value;
+
+    if (password !== cpassword) {
+      swal({
+        title: "Error",
+        text: "Passwords do not match!",
+        icon: "error",
+        button: "OK",
+      });
+      return false; // Prevent form submission
+    }
+    return true; // Allow form submission
+  }
+
+</script>
+
   <!--   Core JS Files   -->
   <script src="../bootstrap/assets/js/core/jquery-3.7.1.min.js"></script>
   <script src="../bootstrap/assets/js/core/popper.min.js"></script>
