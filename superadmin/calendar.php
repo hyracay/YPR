@@ -278,6 +278,26 @@ while($row = mysqli_fetch_assoc($fetch_barangay_result)){
     </div>
     <script src="../bootstrap/assets/css/index.global.min.js"></script>
     <script>
+              function showDeleteConfirmation(event, id) {
+                event.preventDefault();
+                swal({
+                  title: "Are you sure?",
+                  text: "Are you sure you want to delete this event?",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                  .then((willDelete) => {
+                    if (willDelete) {
+                      //change this before deploy
+                      window.location.href = `/YPR/superadmin/calendar.php?id=${id}`;
+                    } else {
+                      swal("The event is safe.", {
+                        icon: "info",
+                      });
+                    }
+                  });
+              }
         const results = <?= json_encode($results); ?>;
         var resultsToShow = results.map(item => ({
             id: item.event_id,
@@ -533,7 +553,8 @@ a {
     color: #699aba;
 }
     </style>
-
+    <!-- Sweet Alert -->
+    <script src="../bootstrap/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
     <!--   Core JS Files   -->
     <script src="../bootstrap/assets/js/core/jquery-3.7.1.min.js"></script>
     <script src="../bootstrap/assets/js/core/popper.min.js"></script>
