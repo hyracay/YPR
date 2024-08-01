@@ -860,24 +860,24 @@ if (isset($_POST['submitAdd'])) {
                     </div>
                    </div>
                   </div>
-                  <div class="form-group">
-                  <label for="password">New Password:</label>
-                  <input type="password" class="form-control" id="password" name="password"
-                    placeholder="Leave blank to keep current password">
-                </div>
-
-                <div class="form-group">
-                  <label for="cpassword">Confirm New Password:</label>
-                  <input type="password" class="form-control" id="cpassword" name="cpassword"
-                    placeholder="Leave blank to keep current password">
-                </div>
-
-                <div class="form-group">
-                  <center>
-                    <input type="submit" class="btn btn-primary" name="submit" value="Update" onclick="return checkPasswordMatch()">
-                    <a href="index.php" class="btn btn-secondary">Cancel</a>
-                  </center>
-                </div>
+                  <div class="col-md-6">
+                   <div class="form-group form-group-default">
+                    <label>KK Activities Attended:</label>
+                    <input type="number" name="times_attended_kk" value="">
+                   </div>
+                  </div>
+                  <div class="col-md-6">
+                   <div class="form-group form-group-default">
+                    <label>If no, why?</label>
+                    <input type="text" name="why" value="">
+                   </div>
+                  </div>
+                 </div>
+               </div>
+               <div class="modal-footer border-0">
+                <button type="submit" id="addRowButton" class="btn btn-primary" name="submitAdd">Add</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" data-bs-dismiss="modal"> Close </button>
+               </div>
               </div>
              </div>
             </div>
@@ -929,21 +929,70 @@ if (isset($_POST['submitAdd'])) {
 
             <!-- swal -->
             <script>
-                function checkPasswordMatch() {
-                  var password = document.getElementById("password").value;
-                  var cpassword = document.getElementById("cpassword").value;
+              function showDeleteConfirmation(event, id) {
+                event.preventDefault();
+                swal({
+                  title: "Are you sure?",
+                  text: "Are you sure you want to delete the selected profiles?",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                  .then((willDelete) => {
+                    if (willDelete) {
+                      //change this before deploy
+                      window.location.href = `/YPR/user/delete.php?id=${id}`;
+                    } else {
+                      swal("The profiles are safe.", {
+                        icon: "info",
+                      });
+                    }
+                  });
+              }
 
-                  if (password !== cpassword) {
-                    swal({
-                      title: "Error",
-                      text: "Passwords do not match!",
-                      icon: "error",
-                      button: "OK",
-                    });
-                    return false; // Prevent form submission
-                  }
-                  return true; // Allow form submission
+              function showDeleteConfirmationMultiple(event) {
+                event.preventDefault();
+                var selectedProfiles = [];
+                document.querySelectorAll('input[name="selectedProfiles[]"]:checked').forEach(function (checkbox) {
+                  selectedProfiles.push(checkbox.value);
+                });
+                if (selectedProfiles.length === 0) {
+                  swal("No profiles selected", "Please select profiles to delete.", "info");
+                  return;
                 }
+                swal({
+                  title: "Are you sure?",
+                  text: "Are you sure you want to delete the selected profiles?",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                  .then((willDelete) => {
+                    if (willDelete) {
+                      var form = document.getElementById('profilesForm');
+                      var formData = new FormData(form);
+                      fetch('delete_multiple.php', {
+                        method: 'POST',
+                        body: formData
+                      }).then(response => response.text()).then(data => {
+                        swal("The selected profiles have been deleted.", {
+                          icon: "success",
+                        }).then(() => {
+                          location.reload();
+                        });
+                      }).catch(error => {
+                        console.error('Error:', error);
+                        swal("Error deleting profiles.", {
+                          icon: "error",
+                        });
+                      });
+                    } else {
+                      swal("The profiles are safe.", {
+                        icon: "info",
+                      });
+                    }
+                  });
+              }
             </script>
 
              <!-- PHP and table code from above -->
